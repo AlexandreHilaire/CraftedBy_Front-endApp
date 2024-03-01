@@ -93,5 +93,12 @@ mindmap
         Product list
 ```
 
-#### Content atoms
+## Atoms
 
+```mermaid
+mindmap
+    button
+        size
+        color
+        label
+```
