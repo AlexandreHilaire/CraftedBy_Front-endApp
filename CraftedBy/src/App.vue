@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <ph-shopping-cart :size="32" />
       </nav>
     </div>
   </header>
