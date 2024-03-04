@@ -107,7 +107,15 @@ Puis les utiliser dans les templates
 
 ### L'auto import
 
-Pour installer l'auto importing d’icônes il faut modifier le vite.config
+Pour installer l'auto importing d’icônes il faut installer unplugin
+
+Installer la librairie phosphor pour l'auto import
+
+```bash
+npm i -D @iconify-json/ph
+```
+
+Modifier le vite.config
 
 ```javascript
 // https://vitejs.dev/config/
@@ -116,7 +124,10 @@ export default defineConfig({
     vue(),
     Components({
       resolvers: [
-        IconsResolver(),
+        IconsResolver({
+          prefix: false,
+          enabledCollections : 'ph',
+        }),
       ],
     }),
     Icons({

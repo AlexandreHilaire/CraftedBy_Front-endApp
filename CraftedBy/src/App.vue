@@ -1,22 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import Header from './components/Organisms/Header.vue';
 
 </script>
 
 <template>
-  <header>
-
-    <div class="wrapper">
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <ph-shopping-cart :size="32" />
-      </nav>
-    </div>
-  </header>
+<div>
+  <Header />
 
   <RouterView />
+
+  </div>
   
 </template>
 

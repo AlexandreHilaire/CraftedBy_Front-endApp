@@ -13,7 +13,10 @@ export default defineConfig({
     vue(),
     Components({
       resolvers: [
-        IconsResolver(),
+        IconsResolver({
+          prefix: false,
+          enabledCollections : 'ph',
+        }),
       ],
     }),
     Icons({

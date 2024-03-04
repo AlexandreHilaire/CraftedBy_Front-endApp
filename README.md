@@ -1,1 +1,0 @@
-# CraftedBy_Front-endApp
