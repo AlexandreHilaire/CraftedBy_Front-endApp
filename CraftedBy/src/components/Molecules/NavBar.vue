@@ -32,10 +32,10 @@
       </div>
     </div>
     <div class="navbar-center md:w-1/3">
-      <SearchBar class="w-3/4 sm:w-3/4 md:align-self-center md:w-auto" />
+      <SearchBar class="w-8/12 sm:w-3/4" />
       <SearchButton />
     </div>
-    <div class="navbar-end md:w-1/3">
+    <div class="navbar-end w-5/12 md:w-1/3">
       <CartButton />
       <UserButton />
     </div>
