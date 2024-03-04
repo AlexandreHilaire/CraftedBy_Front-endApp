@@ -2,6 +2,7 @@
 
 import TheWelcome from '../components/TheWelcome.vue'
 import CraftedBy from '@/components/Atoms/Logos/CraftedBy.vue';
+import CartIcon from '@/components/Atoms/Buttons/CartIcon.vue';
 
 
 </script>
@@ -13,5 +14,6 @@ import CraftedBy from '@/components/Atoms/Logos/CraftedBy.vue';
     <ButtonWarning />
     <ButtonDefault/>
     <CraftedBy />
+    <CartIcon />
   </main>
 </template>
