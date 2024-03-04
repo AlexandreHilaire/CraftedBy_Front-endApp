@@ -3,14 +3,16 @@
 import TheWelcome from '../components/TheWelcome.vue'
 import CraftedBy from '@/components/Atoms/Logos/CraftedBy.vue';
 import CartButton from '@/components/Atoms/Buttons/CartButton.vue';
-import UserButton from '@/components/Atoms/Buttons/UserButton.vue';
-import DarkModeButton from '@/components/Atoms/Buttons/DarkModeButton.vue';
+import UserButton from '@/components/Atoms/Buttons/UserButton.vue';;
+import DarkLightModeButton from '@/components/Atoms/Buttons/DarkLightModeButton.vue';
+import Navbar from '@/components/Molecules/Navbar.vue';
 
 
 
 </script>
 
 <template>
+
   <main>
     <TheWelcome />
     <ButtonPrimary />
@@ -19,6 +21,8 @@ import DarkModeButton from '@/components/Atoms/Buttons/DarkModeButton.vue';
     <CraftedBy />
     <CartButton />
     <UserButton />
-    <DarkModeButton />
+    <DarkLightModeButton/>
+    <Navbar />
   </main>
+
 </template>
