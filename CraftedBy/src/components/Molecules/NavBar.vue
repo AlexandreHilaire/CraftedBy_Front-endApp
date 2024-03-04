@@ -1,6 +1,6 @@
 <template>
-  <div class="navbar bg-base-100">
-    <div class="navbar-start">
+  <div class="navbar bg-base-100 w-32 sm:w-64 md:w-auto">
+    <div class="navbar-start  w-1/3">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
           <svg
@@ -31,11 +31,11 @@
         </ul>
       </div>
     </div>
-    <div class="navbar-center">
-      <SearchBar />
+    <div class="navbar-center md:w-1/3">
+      <SearchBar class="w-3/4 sm:w-3/4 md:align-self-center md:w-auto" />
       <SearchButton />
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end md:w-1/3">
       <CartButton />
       <UserButton />
     </div>

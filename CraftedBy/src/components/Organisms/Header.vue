@@ -6,5 +6,5 @@
         </div>
     </div>
 
-    <NavBar class="sticky top-0 w-auto" />
+    <NavBar class="flex justify-between sticky top-0" />
 </template>
