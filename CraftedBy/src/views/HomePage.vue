@@ -1,9 +1,8 @@
 <script setup>
 
 import TheWelcome from '../components/TheWelcome.vue'
-import ButtonPrimary from '../components/Buttons/ButtonPrimary.vue';
-import ButtonWarning from '@/components/Buttons/ButtonWarning.vue';
-import ButtonDefault from '@/components/Buttons/ButtonDefault.vue';
+import CraftedBy from '@/components/Atoms/Logos/CraftedBy.vue';
+
 
 </script>
 
@@ -13,5 +12,6 @@ import ButtonDefault from '@/components/Buttons/ButtonDefault.vue';
     <ButtonPrimary />
     <ButtonWarning />
     <ButtonDefault/>
+    <CraftedBy />
   </main>
 </template>
