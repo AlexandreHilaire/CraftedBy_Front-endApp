@@ -5,10 +5,12 @@ import Header from './components/Organisms/Header.vue';
 </script>
 
 <template>
-
+<div>
   <Header />
 
   <RouterView />
+
+  </div>
   
 </template>
 

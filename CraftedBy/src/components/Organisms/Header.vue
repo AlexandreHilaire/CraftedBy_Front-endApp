@@ -1,10 +1,12 @@
 <template>
-    <div class="flex place-items-center justify-center ">
+    <div class="flex justify-center ">
 
         <CraftedBy class="flex align-self-center" />
-
-        <DarkLightModeButton class="justify-end" />
+    <div>
+        <DarkLightModeButton />
+    </div>
     </div>
 
-    <NavBar class="fixed" />
+
+    <NavBar class="sticky top-0" />
 </template>
