@@ -21,13 +21,14 @@ getData();
     <header>
         <Header />
     </header>
-    <main>
+    <main class="flex flex-col justify-center">
+    
         <h1 class="text-2xl">productlist</h1>
+        <div class="grid grid-cols-2">
         <li v-for="product in products" :key="product.id">
-            {{product.title}} <br>
-            {{product.price}}<br>
-            {{product.description}}<br><br>
+           <ProductCard :product="product" />
         </li>
+        </div>
     </main>
     <footer>
         <Footer />
