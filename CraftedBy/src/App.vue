@@ -10,9 +10,9 @@ import Footer from './components/Organisms/Footer.vue';
   <Header />
 
   <RouterView />
-
-  </div>
   <Footer />
+  </div>
+
 </template>
 
 <style scoped>
