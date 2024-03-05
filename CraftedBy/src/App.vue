@@ -7,10 +7,10 @@ import Footer from './components/Organisms/Footer.vue';
 
 <template>
 <div>
-  <Header />
+
 
   <RouterView />
-  <Footer />
+
   </div>
 
 </template>

@@ -28,6 +28,9 @@
           <li>
             <RouterLink to="/about">About</RouterLink>
           </li>
+          <li>
+            <RouterLink to="/products">Les produits</RouterLink>
+          </li>
         </ul>
       </div>
     </div>
