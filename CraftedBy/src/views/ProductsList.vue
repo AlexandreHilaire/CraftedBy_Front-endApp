@@ -21,13 +21,12 @@ getData();
     <header>
         <Header />
     </header>
-    <main class="flex flex-col justify-center">
-    
-        <h1 class="text-2xl">productlist</h1>
-        <div class="grid grid-cols-2">
-        <li v-for="product in products" :key="product.id">
+    <main class="flex flex-col place-items-center">
+        <h1 class="text-6xl p-5">Liste des produits</h1>
+        <div class="grid md:grid-cols-3 gap-20 ">
+        <span v-for="product in products" :key="product.id">
            <ProductCard :product="product" />
-        </li>
+        </span>
         </div>
     </main>
     <footer>
