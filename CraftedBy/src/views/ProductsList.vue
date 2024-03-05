@@ -19,9 +19,6 @@ getData();
 </script>
 
 <template>
-    <header>
-        <Header />
-    </header>
     <main class="flex flex-col place-items-center py-5">
         <h1 class="text-6xl p-5">Liste des produits</h1>
         <div class="grid md:grid-cols-3 gap-20 ">
@@ -30,7 +27,4 @@ getData();
         </span>
         </div>
     </main>
-    <footer>
-        <Footer />
-    </footer>
 </template>
