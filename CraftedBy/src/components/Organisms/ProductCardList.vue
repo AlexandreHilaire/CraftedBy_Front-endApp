@@ -16,7 +16,9 @@ const props = defineProps({
             <h2 class="card-title">{{ props.product.title }}</h2>
             <p>{{ props.product.description }}</p>
             <div class="card-actions">
-                <ButtonPrimary />
+                <RouterLink :to="{ name: 'Product', params: { id: props.product.id } }">
+                    <ButtonPrimary :label="'Je veux'" />
+                </RouterLink>
             </div>
             <p class="font-semibold">{{ props.product.price }} €</p>
         </div>
