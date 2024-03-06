@@ -2,6 +2,9 @@
 import { ref, computed } from 'vue'
 import ProductCardList from '@/components/Organisms/ProductCardList.vue';
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+console.log(apiUrl);
 const products = ref([]);
 
 // * for select button
@@ -9,7 +12,7 @@ const selectedCategory = ref('');
 // * Axios request get all data products
 const getData = async () => {
     try {
-        const response = await axios('https://fakestoreapi.com/products');
+        const response = await axios(`${apiUrl}/products`);
         products.value = response.data;
     }
         catch (error) {
@@ -20,7 +23,7 @@ const ProductsCategories = ref([])
 
 const getCategoriesData = async () => {
     try {
-        const response = await axios('https://fakestoreapi.com/products/categories');
+        const response = await axios(`${apiUrl}/products/categories`);
         ProductsCategories.value = response.data;
     }
     catch (error){
