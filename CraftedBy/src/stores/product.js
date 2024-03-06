@@ -23,10 +23,20 @@ export const useProductStore = defineStore('product', () => {
       console.log('error fetching data', error);
     }
   }
+  const filteredProducts = ref();
+  async function fetchProductsByCategory(category) {
+    console.log(category, products)
+    if (!category) {
+      return filteredProducts.value = products.value;
+    }
+    console.log(filteredProducts)
+    try {
+      const response = await axios.get(`${apiUrl}/products/category/${category}`);
+      filteredProducts.value = response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des produits par catégorie :', error);
+    }
+  }
 
-
-  fetchProducts();
-  fetchCategories();
-
-  return { fetchProducts, fetchCategories, products, categories };
+  return { fetchProducts, fetchCategories, fetchProductsByCategory, products, categories, filteredProducts };
 });
