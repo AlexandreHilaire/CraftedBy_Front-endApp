@@ -15,7 +15,8 @@ export const userCartStore = defineStore('cart', () => {
     };
 
     const totalPrice = computed(() => {
-        return cartItems.value.reduce((total, item) => total + item.price, 0);
+        // * round total price with 2 decimals
+        return Math.round((cartItems.value.reduce((total, item) => total + item.price, 0) *100)) /100;
       });
 
     return { cartItems, addProductToCart, removeProductFromCart, totalPrice };
