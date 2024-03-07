@@ -5,10 +5,20 @@ export const userCartStore = defineStore('cart', () => {
 
     const cartItems = ref(JSON.parse(localStorage.getItem('CART')) || [] );
     
+    const totalItemsQuantity = ref ();
+
     const addProductToCart = (product) => {
-        cartItems.value.push({ ...product });
-        window.localStorage.setItem('CART', JSON.stringify(cartItems.value));
-      };
+        const productAlreadyinCart = cartItems.value.findIndex(item => item.id === product.id);
+
+        if (productAlreadyinCart !== -1){
+            cartItems.value[productAlreadyinCart].quantity += 1;
+        }
+        else {
+        cartItems.value.push({ ...product, quantity: 1 });
+        };
+        totalItemsQuantity.value += 1;
+        localStorage.setItem('CART', JSON.stringify(cartItems.value));
+    }
     const removeProductFromCart = (productId) => {
     cartItems.value = cartItems.value.filter((item) => item.id !== productId);
     localStorage.setItem('CART', JSON.stringify(cartItems.value));

@@ -29,12 +29,13 @@ function removeProduct(id){
                 class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
                 <div class="card-body overflow-y-auto max-h-80 space-y-2">
-                    <span class="font-bold text-lg">{{ cartStore.cartItems.length }} Articles dans le panier</span>
+                    <span class="font-bold text-lg">{{ cartStore.totalItemsQuantity }} Articles dans le panier</span>
                     <li v-for="item in cartStore.cartItems" :key="item.id" class="flex flex-wrap space-y-2">
                     <p class="font-semibold underline">{{item.title}}</p>
                     <div class="flex justify-center items-center space-x-4">
                     <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
-                    <p class="font-semibold">{{item.price}} €</p>
+                    <p class="font-semibold">  Quantité : {{ item.quantity }} </p>
+                    <p class="font-semibold">{{ item.price * item.quantity }} €</p>
                     <button>
                         <PhTrash width="25" height ="25" color="#E0B841" @click="removeProduct(item.id)" />
                     </button>
