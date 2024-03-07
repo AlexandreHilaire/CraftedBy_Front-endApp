@@ -35,30 +35,34 @@ function removeOneQuantityProductFromCart(itemId) {
                 class="mt-3 z-[1] card card-compact dropdown-content w-96 bg-base-100 shadow"
             >
                 <div class="card-body overflow-y-auto max-h-80 space-y-2">
-                    <span class="font-bold text-lg">{{ cartStore.totalItemsQuantity }} Articles dans le panier</span>
+                    <span class="font-bold text-lg text-center">{{ cartStore.totalItemsQuantity }} Articles dans le panier</span>
                     <li v-for="item in cartStore.cartItems" :key="item.id" class="flex flex-wrap space-y-2">
-                    <p class="font-semibold underline">{{item.title}}</p>
-                    <div class="flex justify-center items-center space-x-4">
-                    <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
-                    <p class="font-semibold">  Quantité : {{ item.quantity }} </p>
-                    <p class="font-semibold">{{ (item.price * item.quantity).toFixed(2) }} €</p>
-                    <button @click="addProductToCart(item)">
-                        <PhPlusCircle width="25" height="25" color="#E0B841"/>
-                    </button>
-                    <button>
-                        <PhMinusCircle @click="removeOneQuantityProductFromCart(item.id)" width="25" height="25" color="#E0B841"/>
-                    </button>
-                    <button>
-                        <PhTrash width="25" height ="25" color="#E0B841" @click="removeProduct(item.id)" />
-                    </button>
-                    </div>
+                        <p class="font-semibold underline w-full">{{item.title}}</p>
+                        <div class="flex flex-wrap justify-center items-center space-x-4 w-full">
+                            <img :src="item.image" :alt="item.title" class="w-20 h-20 object-cover">
+                            <div class="flex flex-col items-center space-y-2">
+                                <div class="flex space-x-2">
+                                    <button @click="addProductToCart(item)">
+                                        <PhPlusCircle width="25" height="25" color="#E0B841"/>
+                                    </button>
+                                        <p class="font-semibold">Quantité : {{ item.quantity }}</p>
+                                    <button>
+                                        <PhMinusCircle @click="removeOneQuantityProductFromCart(item.id)" width="25" height="25" color="#E0B841"/>
+                                    </button>
+                                </div>
+                                <p class="font-semibold">{{ (item.price * item.quantity).toFixed(2) }} €</p>
+                            </div>
+                            <button>
+                                <PhTrash width="25" height="25" color="#E0B841" @click="removeProduct(item.id)" />
+                            </button>
+                        </div>
                     </li>
-                    <span class="text-info">{{ cartStore.totalPrice }} € </span>
+                    <span class="text-info w-full text-right">Prix total TTC : {{ cartStore.totalPrice }} € </span>
                 </div>
                 <div class="sticky bottom-0">
-                <div class="card-actions">
-                    <button class="btn btn-primary btn-block">Accéder au panier</button>
-                </div>
+                    <div class="card-actions">
+                        <button class="btn btn-primary btn-block">Accéder au panier</button>
+                    </div>
                 </div>
             </div>
         </div>
