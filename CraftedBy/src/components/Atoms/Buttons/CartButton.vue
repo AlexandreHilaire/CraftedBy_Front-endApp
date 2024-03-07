@@ -6,6 +6,9 @@ const cartStore = userCartStore();
 function removeProduct(id){
     cartStore.removeProductFromCart(id);
 }
+function addProductToCart(item) {
+  cartStore.addProductToCart(item);
+}
 </script>
 
 <template>
@@ -21,7 +24,7 @@ function removeProduct(id){
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                     
-                    <span class="badge badge-sm indicator-item">{{ cartStore.cartItems.length }}</span>
+                    <span class="badge badge-sm indicator-item">{{ cartStore.totalItemsQuantity }}</span>
                 </div>
             </div>
             <div
@@ -36,6 +39,12 @@ function removeProduct(id){
                     <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
                     <p class="font-semibold">  Quantité : {{ item.quantity }} </p>
                     <p class="font-semibold">{{ item.price * item.quantity }} €</p>
+                    <button @click="addProductToCart(item)">
+                        <PhPlusCircle width="25" height="25" color="#E0B841"/>
+                    </button>
+                    <button>
+                        <PhMinusCircle width="25" height="25" color="#E0B841"/>
+                    </button>
                     <button>
                         <PhTrash width="25" height ="25" color="#E0B841" @click="removeProduct(item.id)" />
                     </button>
