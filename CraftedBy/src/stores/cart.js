@@ -7,7 +7,7 @@ export const userCartStore = defineStore('cart', () => {
 
     const totalItemsQuantity = computed(() => {
         let total = 0;
-        for (let i= 0; i < cartItems.value.length; i++) {
+        for (let i = 0; i < cartItems.value.length; i++) {
             total += cartItems.value[i].quantity;
         }
         return total;
@@ -24,15 +24,31 @@ export const userCartStore = defineStore('cart', () => {
         };
         localStorage.setItem('CART', JSON.stringify(cartItems.value));
     }
+
+    const removeOneProductQuantityFormCart = (productId) => {
+        const productIndex = cartItems.value.findIndex(item => item.id === productId);
+
+        if (productIndex !== -1 && cartItems.value[productIndex].quantity > 1) {
+            cartItems.value[productIndex].quantity--;
+            localStorage.setItem('CART', JSON.stringify(cartItems.value));
+        }
+    };
+
     const removeProductFromCart = (productId) => {
         cartItems.value = cartItems.value.filter((item) => item.id !== productId);
         localStorage.setItem('CART', JSON.stringify(cartItems.value));
     };
 
     const totalPrice = computed(() => {
-        // * round total price with 2 decimals
-        return Math.round((cartItems.value.reduce((total, item) => total + item.price, 0) * 100)) / 100;
-    });
+        return (cartItems.value.reduce((total, item) => total + (item.price * item.quantity), 0)).toFixed(2);
+      });
 
-    return { cartItems, addProductToCart, removeProductFromCart, totalPrice, totalItemsQuantity };
+    return {
+        cartItems,
+        totalPrice,
+        totalItemsQuantity,
+        addProductToCart,
+        removeProductFromCart,
+        removeOneProductQuantityFormCart
+    };
 });

@@ -4,10 +4,13 @@ import { userCartStore } from '@/stores/cart';
 const cartStore = userCartStore();
 
 function removeProduct(id){
-    cartStore.removeProductFromCart(id);
+   cartStore.removeProductFromCart(id);
 }
 function addProductToCart(item) {
-  cartStore.addProductToCart(item);
+   cartStore.addProductToCart(item);
+}
+function removeOneQuantityProductFromCart(itemId) {
+   cartStore.removeOneProductQuantityFormCart(itemId);
 }
 </script>
 
@@ -38,19 +41,19 @@ function addProductToCart(item) {
                     <div class="flex justify-center items-center space-x-4">
                     <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
                     <p class="font-semibold">  Quantité : {{ item.quantity }} </p>
-                    <p class="font-semibold">{{ item.price * item.quantity }} €</p>
+                    <p class="font-semibold">{{ (item.price * item.quantity).toFixed(2) }} €</p>
                     <button @click="addProductToCart(item)">
                         <PhPlusCircle width="25" height="25" color="#E0B841"/>
                     </button>
                     <button>
-                        <PhMinusCircle width="25" height="25" color="#E0B841"/>
+                        <PhMinusCircle @click="removeOneQuantityProductFromCart(item.id)" width="25" height="25" color="#E0B841"/>
                     </button>
                     <button>
                         <PhTrash width="25" height ="25" color="#E0B841" @click="removeProduct(item.id)" />
                     </button>
                     </div>
                     </li>
-                    <span class="text-info">{{cartStore.totalPrice}} € </span>
+                    <span class="text-info">{{ cartStore.totalPrice }} € </span>
                 </div>
                 <div class="sticky bottom-0">
                 <div class="card-actions">
