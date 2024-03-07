@@ -2,6 +2,10 @@
 import { userCartStore } from '@/stores/cart';
 
 const cartStore = userCartStore();
+
+function removeProduct(id){
+    cartStore.removeProductFromCart(id);
+}
 </script>
 
 <template>
@@ -31,6 +35,9 @@ const cartStore = userCartStore();
                     <div class="flex justify-center items-center space-x-4">
                     <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
                     <p class="font-semibold">{{item.price}} €</p>
+                    <button>
+                        <PhTrash width="25" height ="25" color="#E0B841" @click="removeProduct(item.id)" />
+                    </button>
                     </div>
                     </li>
                     <span class="text-info">{{cartStore.totalPrice}} € </span>
