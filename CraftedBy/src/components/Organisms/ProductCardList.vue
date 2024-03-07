@@ -8,9 +8,9 @@ const props = defineProps({
 
 <template>
     <div class="card w-96 bg-base-100 shadow-xl">
-        <figure>
+        <figure class="bg-white p-2">
             <!-- * :src and not {{ props.product.image }} because binding -->
-            <img :src="props.product.image" alt="productImage" class="h-50 w-50" />
+            <img :src="props.product.image" alt="productImage" class="h-64 object-contain" />
         </figure>
         <div class="card-body items-center text-center">
             <h2 class="card-title">{{ props.product.title }}</h2>

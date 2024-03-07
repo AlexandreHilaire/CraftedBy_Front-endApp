@@ -1,5 +1,5 @@
 <template>
 
-<input type="text" placeholder="Entrez votre recherche" />
+<input type="text" placeholder="Entrez votre recherche"/>
 
 </template>

@@ -1,8 +1,15 @@
 <script setup>
+import { userCartStore } from '@/stores/cart';
+
+const cartStore = userCartStore();
 
 const props = defineProps({
   product: Object
 });
+
+function addProductToCart(product) {
+  cartStore.addProductToCart(product);
+}
 
 </script>
 
@@ -16,7 +23,7 @@ const props = defineProps({
       <p>{{ props.product.description }}</p>
       <p class="font-semibold justify-end">{{ props.product.price }} €</p>
       <div class="card-actions justify-end">
-        <ButtonPrimary :label="'Acheter'" />
+        <ButtonPrimary @click="addProductToCart(props.product)" :label="'Acheter'" />
       </div>
     </div>
   </div>
