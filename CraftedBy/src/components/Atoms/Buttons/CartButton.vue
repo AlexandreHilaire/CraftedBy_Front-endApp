@@ -24,12 +24,14 @@ const cartStore = userCartStore();
                 tabindex="0"
                 class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
-                <div class="card-body">
+                <div class="card-body overflow-y-auto max-h-80 space-y-2">
                     <span class="font-bold text-lg">{{ cartStore.cartItems.length }} Articles dans le panier</span>
-                    <li v-for="item in cartStore.cartItems" :key="item.id" class="flex flex-wrap">
-                    <h2>{{item.title}}</h2>
+                    <li v-for="item in cartStore.cartItems" :key="item.id" class="flex flex-wrap space-y-2">
+                    <p class="font-semibold underline">{{item.title}}</p>
+                    <div class="flex justify-center items-center space-x-4">
                     <img :src="item.image" :alt="item.title" class = "w-20 h-20 object-cover">
-                    <p class="font-semibold">{{item.price}}</p>
+                    <p class="font-semibold">{{item.price}} €</p>
+                    </div>
                     </li>
                     <span class="text-info">{{cartStore.totalPrice}} € </span>
                     <div class="card-actions">
