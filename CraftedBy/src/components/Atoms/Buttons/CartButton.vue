@@ -34,9 +34,11 @@ const cartStore = userCartStore();
                     </div>
                     </li>
                     <span class="text-info">{{cartStore.totalPrice}} € </span>
-                    <div class="card-actions">
-                        <button class="btn btn-primary btn-block">Accéder au panier</button>
-                    </div>
+                </div>
+                <div class="sticky bottom-0">
+                <div class="card-actions">
+                    <button class="btn btn-primary btn-block">Accéder au panier</button>
+                </div>
                 </div>
             </div>
         </div>
