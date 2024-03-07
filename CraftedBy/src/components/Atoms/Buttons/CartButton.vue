@@ -26,7 +26,7 @@ function removeProduct(id){
             </div>
             <div
                 tabindex="0"
-                class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+                class="mt-3 z-[1] card card-compact dropdown-content w-96 bg-base-100 shadow"
             >
                 <div class="card-body overflow-y-auto max-h-80 space-y-2">
                     <span class="font-bold text-lg">{{ cartStore.totalItemsQuantity }} Articles dans le panier</span>
