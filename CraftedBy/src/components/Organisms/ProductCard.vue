@@ -1,15 +1,14 @@
 <script setup>
-import { ref } from 'vue';
+import { userCartStore } from '@/stores/cart';
 
-const cartItems = ref(JSON.parse(localStorage.getItem('CART')) || []);
+const cartStore = userCartStore();
 
 const props = defineProps({
   product: Object
 });
 
 function addProductToCart(product) {
-  cartItems.value.push({ ...product });
-  window.localStorage.setItem('CART', JSON.stringify(cartItems.value));
+  cartStore.addProductToCart(product);
 }
 
 </script>
