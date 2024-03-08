@@ -4,6 +4,10 @@ export default {
   theme: {
     extend: {},
   },
+  daisyui:{
+    themes: ["cupcake", "coffee"],
+    darkTheme: "coffee",
+  },
   plugins: [
     require("daisyui")
   ],
