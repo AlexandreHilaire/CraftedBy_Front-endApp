@@ -1,8 +1,18 @@
 <script setup>
 import  { userCartStore } from '@/stores/cart';
-import CartTab from '@/components/Organisms/CartTab.vue';
+import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 
 const cartStore = userCartStore();
+
+function removeProduct(id){
+   cartStore.removeProductFromCart(id);
+}
+function addProductToCart(item) {
+   cartStore.addProductToCart(item);
+}
+function removeOneQuantityProductFromCart(itemId) {
+   cartStore.removeOneProductQuantityFormCart(itemId);
+}
 
 
 </script>
@@ -10,7 +20,7 @@ const cartStore = userCartStore();
 <template>
 
 <div class="overflow flex w-3/4 mx-auto">
-  <table class="table ">
+  <table class="table">
     <!-- head -->
     <thead>
       <tr>
@@ -21,7 +31,7 @@ const cartStore = userCartStore();
         <th>total</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="overflow-y-auto">
       <!-- rows -->
       <tr v-for="item in cartStore.cartItems" :key="item.id">
         <td>
@@ -36,9 +46,20 @@ const cartStore = userCartStore();
         <td>
           {{ item.title }}
         </td>
-        <td>{{ item.quantity }}</td>
+        <td>
+            <button @click="addProductToCart(item)" class="align-middle">
+                <PhPlusCircle width="25" height="25" color="#E0B841"/>
+            </button>
+                {{ item.quantity }}
+            <button class="align-middle">
+                <PhMinusCircle @click="removeOneQuantityProductFromCart(item.id)" width="25" height="25" color="#E0B841"/>
+            </button>
+        </td>
         <th>
-          <button class="btn btn-ghost btn-xs"> {{ (item.price * item.quantity).toFixed(2) }} €</button>
+          <button class="btn btn-ghost btn-xs align-middle"> {{ (item.price * item.quantity).toFixed(2) }} €</button>
+          <button class="align-middle">
+            <PhTrash width="25" height="25" color="#E0B841" @click="removeProduct(item.id)" />
+          </button>
         </th>
       </tr>
     </tbody>
@@ -49,10 +70,14 @@ const cartStore = userCartStore();
         <th>Nom</th>
         <th>quantité</th>
         <th>prix</th>
-        <th>total : {{ cartStore.totalPrice }} €</th>
+        <th> total : {{ cartStore.totalPrice }} € </th>
       </tr>
     </tfoot>
   </table>
+  <div class = "flex justify-end mt-4 items-end">
+    <ButtonPrimary :label="'Poursuivre'" />
+  </div>
 </div>
+
 
 </template>
