@@ -21,6 +21,11 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/purchase',
+      name: 'purchaseFunnel',
+      component: () => import('../views/PurchaseFunnel.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

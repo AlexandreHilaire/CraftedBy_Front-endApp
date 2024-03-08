@@ -61,7 +61,10 @@ function removeOneQuantityProductFromCart(itemId) {
                 </div>
                 <div class="sticky bottom-0">
                     <div class="card-actions">
-                        <button class="btn btn-primary btn-block">Accéder au panier</button>
+                        <RouterLink :to="{name: 'purchaseFunnel' }">
+                        <button class="btn btn-primary btn-block">Accéder au panier
+                        </button>
+                        </RouterLink>
                     </div>
                 </div>
             </div>
