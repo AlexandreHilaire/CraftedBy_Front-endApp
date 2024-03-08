@@ -1,6 +1,7 @@
 <script setup>
 import  { userCartStore } from '@/stores/cart';
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
+import Steps from '@/components/Organisms/Steps.vue';
 
 const cartStore = userCartStore();
 
@@ -18,7 +19,9 @@ function removeOneQuantityProductFromCart(itemId) {
 </script>
 
 <template>
-
+<div class="flex mx-auto place-content-center">
+    <Steps />
+</div>
 <div class="overflow flex w-3/4 mx-auto">
   <table class="table">
     <!-- head -->
@@ -75,7 +78,9 @@ function removeOneQuantityProductFromCart(itemId) {
     </tfoot>
   </table>
   <div class = "flex justify-end mt-4 items-end">
-    <ButtonPrimary :label="'Poursuivre'" />
+    <RouterLink :to="{name: 'deliveryAddresses' }">
+      <ButtonPrimary :label="'Poursuivre'" />
+    </RouterLink>
   </div>
 </div>
 

@@ -21,9 +21,14 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/purchase',
+      path: '/cart',
       name: 'purchaseFunnel',
       component: () => import('../views/PurchaseFunnel.vue'),
+    },
+    {
+      path: '/deliveryAddresses',
+      name: 'deliveryAddresses',
+      component: () => import('../views/DeliveryAddresses.vue'),
     },
     {
       path: '/about',
