@@ -47,6 +47,8 @@ axios
     </div>
   </div>
   <div class="flex place-content-center">
-    <ButtonPrimary :label="'Valider'"/>
+    <RouterLink :to="{ name: 'deliveryMethod' }">
+      <ButtonPrimary :label="'Poursuivre'" />
+    </RouterLink>
   </div>
 </template>

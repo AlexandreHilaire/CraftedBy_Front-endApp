@@ -17,7 +17,7 @@ const getStepClass = (name) => {
   <ul class="steps">
     <li :class="getStepClass('purchaseFunnel')">Cart</li>
     <li :class="getStepClass('deliveryAddresses')">Delivery informations </li>
-    <li :class="getStepClass('carriers')">Carriers</li>
-    <li :class="getStepClass('payment')">Purchase</li>
+    <li :class="getStepClass('deliveryMethod')">Delivery method</li>
+    <li :class="getStepClass('payment')">Payment</li>
   </ul>
 </template>
