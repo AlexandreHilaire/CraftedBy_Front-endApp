@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
+import DeliveryMethod from '@/views/DeliveryMethod.vue'
+import DeliveryAddresses from '../views/DeliveryAddresses.vue'
+import PurchaseFunnel from '@/views/PurchaseFunnel.vue'
+import Product from '../views/Product.vue'
+import ProductsList from '../views/ProductsList.vue'
+import PaymentView from '@/views/PaymentView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,13 +18,33 @@ const router = createRouter({
     {
       path: '/products',
       name: 'products',
-      component: () => import('../views/ProductsList.vue')
+      component: ProductsList
     },
     {
       path: '/product/:id',
       name: 'Product',
-      component: () => import('../views/Product.vue'),
+      component: Product,
       props: true
+    },
+    {
+      path: '/cart',
+      name: 'purchaseFunnel',
+      component: PurchaseFunnel,
+    },
+    {
+      path: '/deliveryAddresses',
+      name: 'deliveryAddresses',
+      component: DeliveryAddresses,
+    },
+    {
+      path: '/deliveryMethod',
+      name: 'deliveryMethod',
+      component: DeliveryMethod,
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: PaymentView,
     },
     {
       path: '/about',
