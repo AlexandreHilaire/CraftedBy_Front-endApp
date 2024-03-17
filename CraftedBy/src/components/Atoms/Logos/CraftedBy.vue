@@ -1,5 +1,5 @@
 <template>
 
-<img src="../../icons/CraftedByLogo.png">
+<img src="/CraftedByLogo.png">
 
 </template>
