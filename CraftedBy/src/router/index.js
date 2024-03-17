@@ -6,6 +6,7 @@ import PurchaseFunnel from '@/views/PurchaseFunnel.vue'
 import Product from '../views/Product.vue'
 import ProductsList from '../views/ProductsList.vue'
 import PaymentView from '@/views/PaymentView.vue'
+import CraftersListView from '@/views/CraftersListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/payment',
       name: 'payment',
       component: PaymentView,
+    },
+    {
+      path: '/crafters',
+      name: 'crafters',
+      component: CraftersListView,
     },
     {
       path: '/about',

@@ -32,6 +32,9 @@
           <li>
             <RouterLink to="/products">Les produits</RouterLink>
           </li>
+          <li>
+            <RouterLink to="/crafters">Les artisans</RouterLink>
+          </li>
         </ul>
       </div>
     </div>
