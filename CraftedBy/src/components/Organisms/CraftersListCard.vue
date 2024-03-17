@@ -3,7 +3,7 @@ import ButtonPrimary from '../Atoms/Buttons/ButtonPrimary.vue';
 </script>
 
 <template>
-  <div class="card card-side bg-base-100 shadow-xl max-w-2xl">
+  <div class="card card-side bg-base-100 shadow-xl w-2/4">
     <figure>
       <img src="/crafter.svg" alt="crafter" class="w-[250px] h-[350px]" />
     </figure>
