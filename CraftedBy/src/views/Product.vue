@@ -1,28 +1,15 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue'
+
 import ProductCard from '@/components/Organisms/ProductCard.vue';
 
 const props = defineProps(['id']);
-const product = ref(null)
 
-const getProductData = async () => {
-    try {
-        const response = await axios(`http://127.0.0
-        1:8000/products/${props.id}`);
-        product.value = response.data;
-        console.log("produit", product.value);
-    }
-    catch (error) {
-        console.log('error fetching data', error);
-    }
-};
-
-getProductData();
 </script>
 
 <template>
     <main>
-        <ProductCard :product = 'product' />
+        <ProductCard :id = 'props.id' />
     </main>
 </template>
