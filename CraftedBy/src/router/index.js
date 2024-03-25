@@ -23,8 +23,8 @@ const router = createRouter({
       component: ProductsList
     },
     {
-      path: '/product/:id',
-      name: 'Product',
+      path: '/product/:name',
+      name: 'product',
       component: Product,
       props: true
     },

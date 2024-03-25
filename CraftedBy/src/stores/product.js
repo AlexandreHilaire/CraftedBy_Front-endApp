@@ -25,11 +25,9 @@ export const useProductStore = defineStore('product', () => {
   }
   const filteredProducts = ref();
   async function fetchProductsByCategory(category) {
-    console.log(category, products)
     if (!category) {
       return filteredProducts.value = products.value;
     }
-    console.log(filteredProducts)
     try {
       const response = await axios.get(`${apiUrl}/products/search/${category}`);
       filteredProducts.value = response.data;

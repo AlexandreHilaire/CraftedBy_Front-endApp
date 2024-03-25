@@ -8,7 +8,8 @@ const product = ref(null)
 
 const getProductData = async () => {
     try {
-        const response = await axios(`https://fakestoreapi.com/products/${props.id}`);
+        const response = await axios(`http://127.0.0
+        1:8000/products/${props.id}`);
         product.value = response.data;
         console.log("produit", product.value);
     }
