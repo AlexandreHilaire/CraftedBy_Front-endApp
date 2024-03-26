@@ -41,13 +41,13 @@ function removeOneQuantityProductFromCart(itemId) {
           <div class="flex items-center gap-3">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
-                <img :src="item.image" alt="Avatar Tailwind CSS Component" />
+                <img :src="item.images" alt="Avatar Tailwind CSS Component" />
               </div>
             </div>
           </div>
         </td>
         <td>
-          {{ item.title }}
+          {{ item.name }}
         </td>
         <td>
             <button @click="addProductToCart(item)" class="align-middle">
@@ -59,7 +59,7 @@ function removeOneQuantityProductFromCart(itemId) {
             </button>
         </td>
         <th>
-          <button class="btn btn-ghost btn-xs align-middle"> {{ (item.price * item.quantity).toFixed(2) }} €</button>
+          <button class="btn btn-ghost btn-xs align-middle"> {{ (item.unit_price * item.quantity).toFixed(2) }} €</button>
           <button class="align-middle">
             <PhTrash width="25" height="25" color="#E0B841" @click="removeProduct(item.id)" />
           </button>

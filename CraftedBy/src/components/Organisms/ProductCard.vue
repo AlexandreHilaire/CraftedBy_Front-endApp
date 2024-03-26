@@ -16,7 +16,7 @@ const {productData} = storeToRefs(productStore)
 console.log("product data", productData.value)
 
 function addProductToCart() {
-  cartStore.addProductToCart(productData);
+  cartStore.addProductToCart(productData.value);
 }
 
 </script>

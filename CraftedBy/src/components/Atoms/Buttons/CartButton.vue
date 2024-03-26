@@ -37,9 +37,9 @@ function removeOneQuantityProductFromCart(itemId) {
                 <div class="card-body overflow-y-auto max-h-80 space-y-2">
                     <span class="font-bold text-lg text-center">{{ cartStore.totalItemsQuantity }} Articles dans le panier</span>
                     <li v-for="item in cartStore.cartItems" :key="item.id" class="flex flex-wrap space-y-2">
-                        <p class="font-semibold underline w-full">{{item.title}}</p>
+                        <p class="font-semibold underline w-full">{{item.name}}</p>
                         <div class="flex flex-wrap justify-center items-center space-x-4 w-full">
-                            <img :src="item.image" :alt="item.title" class="w-20 h-20 object-cover">
+                            <img :src="item.images" :alt="item.name" class="w-20 h-20 object-cover">
                             <div class="flex flex-col items-center space-y-2">
                                 <div class="flex space-x-2">
                                     <button @click="addProductToCart(item)">
@@ -50,7 +50,7 @@ function removeOneQuantityProductFromCart(itemId) {
                                         <PhMinusCircle @click="removeOneQuantityProductFromCart(item.id)" width="25" height="25" color="#E0B841"/>
                                     </button>
                                 </div>
-                                <p class="font-semibold">{{ (item.price * item.quantity).toFixed(2) }} €</p>
+                                <p class="font-semibold">{{ (item.unit_price * item.quantity).toFixed(2) }} €</p>
                             </div>
                             <button>
                                 <PhTrash width="25" height="25" color="#E0B841" @click="removeProduct(item.id)" />
