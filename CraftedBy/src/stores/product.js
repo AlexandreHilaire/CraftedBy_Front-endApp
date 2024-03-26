@@ -17,7 +17,7 @@ export const useProductStore = defineStore('product', () => {
   const categories = ref();
   async function fetchCategories() {
     try {
-      const response = await axios.get(`${apiUrl}/products/categories`);
+      const response = await axios.get(`${apiUrl}/categories`);
       categories.value = response.data;
     } catch (error) {
       console.log('error fetching data', error);
@@ -25,18 +25,23 @@ export const useProductStore = defineStore('product', () => {
   }
   const filteredProducts = ref();
   async function fetchProductsByCategory(category) {
-    console.log(category, products)
-    if (!category) {
-      return filteredProducts.value = products.value;
-    }
-    console.log(filteredProducts)
     try {
-      const response = await axios.get(`${apiUrl}/products/category/${category}`);
+      const response = await axios.get(`${apiUrl}/products/search/${category}`);
       filteredProducts.value = response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des produits par catégorie :', error);
     }
   }
+  const productData = ref();
+  async function getProductData(id) {
+    try {
+      const response = await axios(`${apiUrl}/products/${id}`);
+      productData.value = response.data;
+    }
+    catch (error) {
+      console.log('error fetching data', error);
+    }
+  }
 
-  return { fetchProducts, fetchCategories, fetchProductsByCategory, products, categories, filteredProducts };
+  return { fetchProducts, fetchCategories, fetchProductsByCategory, getProductData, products, categories, filteredProducts, productData };
 });
