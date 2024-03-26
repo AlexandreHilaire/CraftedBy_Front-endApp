@@ -8,6 +8,7 @@ import ProductsList from '../views/ProductsList.vue'
 import PaymentView from '@/views/PaymentView.vue'
 import CraftersListView from '@/views/CraftersListView.vue'
 import CrafterView from '@/views/CrafterView.vue'
+import Login from '@/views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/crafter',
       name: 'crafter',
       component : CrafterView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
     {
       path: '/about',
