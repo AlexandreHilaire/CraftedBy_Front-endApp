@@ -27,7 +27,7 @@ const auth = false;
                 <RouterLink to="/login">
                     Connexion
                 </RouterLink>
-                <p>toto</p>
+                
             </li>
         </ul>
     </div>
