@@ -1,6 +1,12 @@
 <script setup>
-const auth = false;
+import { useUserStore } from '@/stores/user';
+const auth = true;
 
+const userStore = useUserStore();
+
+const logout = async () => {
+    await userStore.logout();
+}
 </script>
 <template>
     <div class="dropdown dropdown-end">
@@ -21,13 +27,12 @@ const auth = false;
                 <a>Paramètres</a>
             </li>
             <li v-if="auth">
-                <a>Déconnexion</a>
+                <a @click="logout">Déconnexion</a>
             </li>
             <li v-else>
                 <RouterLink to="/login">
                     Connexion
                 </RouterLink>
-                
             </li>
         </ul>
     </div>

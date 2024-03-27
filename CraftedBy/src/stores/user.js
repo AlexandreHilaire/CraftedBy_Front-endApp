@@ -7,14 +7,21 @@ export const useUserStore = defineStore('user', () => {
 
     async function login(email, password) {
         try {
-            // await axios.get(`${url}/sanctum/csrf-cookie`);
             await axios.post(`${url}/login`, {email, password} );
         }
         catch (error){
             console.log('erreur d\'authentification',error);
         }
     }
-
-    return {login};
+    async function logout (){
+        try {
+            await axios.post(`${url}/logout`);
+            console.log("déconnecté")
+        }
+        catch (error){
+            console.log('erreur de déconnexion', error)
+        }
+    }
+    return {login, logout};
 
 });
