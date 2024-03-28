@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { ref } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
-
+    const isAuth = ref(JSON.parse(localStorage.getItem('USER')) || []);
     const url = import.meta.env.VITE_URL;
     const apiUrl = import.meta.env.VITE_API_URL;
 
     async function login(email, password) {
         try {
             await axios.post(`${url}/login`, {email, password} );
+            isAuth.value = true;
         }
         catch (error){
             console.log('erreur d\'authentification',error);
@@ -17,7 +19,8 @@ export const useUserStore = defineStore('user', () => {
     async function logout (){
         try {
             await axios.post(`${url}/logout`);
-            console.log("déconnecté")
+            console.log("déconnecté");
+            isAuth.value = false;
         }
         catch (error){
             console.log('erreur de déconnexion', error);
@@ -41,6 +44,7 @@ export const useUserStore = defineStore('user', () => {
             console.log("erreur lors de l'enregistrement", error);
         }
     }
+    
     return {login, logout, userAuth, register};
 
 });
