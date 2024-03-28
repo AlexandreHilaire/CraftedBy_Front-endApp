@@ -4,6 +4,7 @@ import LogForms from '@/components/Molecules/LogForms.vue';
 </script>
 
 <template>
-<h1>Se connecter</h1>
+<h1>TOto</h1>
 <LogForms />
+
 </template>

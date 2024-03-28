@@ -1,6 +1,6 @@
 <script setup>
 import { useUserStore } from '@/stores/user';
-const auth = true;
+const auth = false;
 
 const userStore = useUserStore();
 
@@ -32,6 +32,9 @@ const logout = async () => {
             <li v-else>
                 <RouterLink to="/login">
                     Connexion
+                </RouterLink>
+                <RouterLink to="/register">
+                    S'inscrire
                 </RouterLink>
             </li>
         </ul>
