@@ -1,3 +1,14 @@
+<script setup>
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore();
+
+const isAuth = userStore.isAuth;
+
+const logout = async () => {
+    await userStore.logout();
+}
+</script>
 <template>
     <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
@@ -9,17 +20,23 @@
             tabindex="0"
             class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
         >
-            <li>
-                <a class="justify-between">
-                    Profile
-                    <span class="badge">New</span>
-                </a>
+            <li></li>
+            <li v-if="isAuth">
+                <a class="justify-between">Profil</a>
             </li>
-            <li>
-                <a>Settings</a>
+            <li v-if="isAuth">
+                <a>Paramètres</a>
             </li>
-            <li>
-                <a>Logout</a>
+            <li v-if="isAuth">
+                <a @click="logout">Déconnexion</a>
+            </li>
+            <li v-else>
+                <RouterLink to="/login">
+                    Connexion
+                </RouterLink>
+                <RouterLink to="/register">
+                    S'inscrire
+                </RouterLink>
             </li>
         </ul>
     </div>
