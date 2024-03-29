@@ -6,6 +6,7 @@ export const useCraftersStore = defineStore('crafter', () => {
 
     const apiUrl = import.meta.env.VITE_API_URL;
     const crafters = ref([]);
+    const crafterData = ref();
 
     async function fetchCrafters () {
         try {
@@ -17,6 +18,16 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
-    return {fetchCrafters, crafters};
+    async function fetchCrafterData (id) {
+        try{
+            const response = await axios.get(`${apiUrl}/crafters/${id}`);
+            crafterData.value = response.data;
+        }
+        catch(error){
+            console.log("error fetching data", error);
+        }
+    }
+
+    return {fetchCrafters, fetchCrafterData, crafters, crafterData};
 
 });

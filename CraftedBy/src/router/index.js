@@ -55,7 +55,7 @@ const router = createRouter({
       component: CraftersListView,
     },
     {
-      path: '/crafter',
+      path: '/crafter/:id',
       name: 'crafter',
       component : CrafterView,
     },

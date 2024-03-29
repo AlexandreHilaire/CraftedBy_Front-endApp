@@ -1,5 +1,14 @@
 <script setup>
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
+import { useCraftersStore } from '@/stores/crafters';
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
+
+const crafterStore = useCraftersStore();
+
+const route = useRoute()
+const crafterId = ref(route.params.id);
+const crafter = crafterStore.fetchCrafterData(crafterId.value);
 
 
 let products = ['1', '2', '3', '4', '5'] ;
@@ -7,7 +16,7 @@ let products = ['1', '2', '3', '4', '5'] ;
 </script>
 
 <template>
-  <h1 class="m-5 flex justify-center text-2xl">Crafter Shop</h1>
+  <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.id}}</h1>
 
   <div class="m-5 flex justify-center">
     <div class="card w-96 bg-base-100 shadow-xl">
@@ -17,10 +26,7 @@ let products = ['1', '2', '3', '4', '5'] ;
       <div class="card-body">
         <h2 class="card-title justify-center text-xl">Intro :</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum nulla ut luctus
-          placerat. Ut vel mattis purus. Sed porta odio ut dictum feugiat. Phasellus leo risus,
-          tristique nec varius non, iaculis ut ante. Sed ornare non massa at volutpat. Nunc vel
-          convallis urna.
+          {{crafterStore.crafterData.information}}
         </p>
         <div class="card-actions justify-center">
           <div class="dropdown">
@@ -31,7 +37,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             >
               <div class="card-body">
                 <h3 class="card-title">Emplacement</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+                <p>{{crafterStore.crafterData.location}}</p>
               </div>
             </div>
           </div>
@@ -43,7 +49,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             >
               <div class="card-body">
                 <h3 class="card-title">Mon histoire</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+                <p>{{crafterStore.crafterData.story}}</p>
               </div>
             </div>
           </div>
@@ -55,7 +61,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             >
               <div class="card-body">
                 <h3 class="card-title">Mon savoir faire</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+                <p>{{crafterStore.crafterData.crafting_process}}</p>
               </div>
             </div>
           </div>
@@ -67,7 +73,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             >
               <div class="card-body">
                 <h3 class="card-title">Ce que j'aime le plus</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+                <p>{{crafterStore.crafterData.material_preference}}</p>
               </div>
             </div>
           </div>

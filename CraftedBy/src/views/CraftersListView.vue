@@ -14,6 +14,6 @@ onBeforeMount( async () => {
 <template>
     <h1 class="text-2xl flex justify-center">Voici nos artisans</h1>
     <div v-for="crafter in craftersStore.crafters" :key="crafter" class="flex flex-col items-center m-20">
-    <CraftersListCard />
+    <CraftersListCard :crafter="crafter"/>
     </div>
 </template>
