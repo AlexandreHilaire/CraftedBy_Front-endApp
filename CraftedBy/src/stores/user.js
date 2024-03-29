@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
-    const isAuth = ref(JSON.parse(localStorage.getItem('USER')) || []);
+    const isAuth = ref(JSON.parse(localStorage.getItem('USER')));
     const url = import.meta.env.VITE_URL;
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', () => {
         try {
             await axios.post(`${url}/login`, {email, password} );
             isAuth.value = true;
+            localStorage.setItem('USER', JSON.stringify({isAuth : true}));             
         }
         catch (error){
             console.log('erreur d\'authentification',error);
@@ -21,6 +22,7 @@ export const useUserStore = defineStore('user', () => {
             await axios.post(`${url}/logout`);
             console.log("déconnecté");
             isAuth.value = false;
+            localStorage.setItem('USER', JSON.stringify({isAuth : false})); 
         }
         catch (error){
             console.log('erreur de déconnexion', error);
@@ -45,6 +47,6 @@ export const useUserStore = defineStore('user', () => {
         }
     }
     
-    return {login, logout, userAuth, register};
+    return {login, logout, userAuth, register, isAuth};
 
 });

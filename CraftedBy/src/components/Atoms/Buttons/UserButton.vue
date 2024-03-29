@@ -1,8 +1,9 @@
 <script setup>
 import { useUserStore } from '@/stores/user';
-const auth = false;
 
 const userStore = useUserStore();
+
+const isAuth = userStore.isAuth;
 
 const logout = async () => {
     await userStore.logout();
@@ -20,13 +21,13 @@ const logout = async () => {
             class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
         >
             <li></li>
-            <li v-if="auth">
+            <li v-if="isAuth">
                 <a class="justify-between">Profil</a>
             </li>
-            <li v-if="auth">
+            <li v-if="isAuth">
                 <a>Paramètres</a>
             </li>
-            <li v-if="auth">
+            <li v-if="isAuth">
                 <a @click="logout">Déconnexion</a>
             </li>
             <li v-else>
