@@ -16,7 +16,7 @@ let products = ['1', '2', '3', '4', '5'] ;
 </script>
 
 <template>
-  <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.id}}</h1>
+  <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.crafter_name}}</h1>
 
   <div class="m-5 flex justify-center">
     <div class="card w-96 bg-base-100 shadow-xl">

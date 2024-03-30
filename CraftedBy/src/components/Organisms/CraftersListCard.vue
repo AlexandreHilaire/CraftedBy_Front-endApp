@@ -13,7 +13,7 @@ const props = defineProps({
       <img src="/crafter.svg" alt="crafter" class="w-[250px] h-[350px]" />
     </figure>
     <div class="card-body">
-      <h2 class="card-title">{{props.crafter.id}}</h2>
+      <h2 class="card-title">{{props.crafter.crafter_name}}</h2>
       <p>{{props.crafter.information}}</p>
       <div class="card-actions justify-end">
         <RouterLink :to="{ name: 'crafter', params: { id: props.crafter.id } }">
