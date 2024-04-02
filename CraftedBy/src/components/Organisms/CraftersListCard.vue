@@ -1,5 +1,10 @@
 <script setup>
 import ButtonPrimary from '../Atoms/Buttons/ButtonPrimary.vue';
+
+const props = defineProps({
+    crafter: Object
+})
+
 </script>
 
 <template>
@@ -8,10 +13,10 @@ import ButtonPrimary from '../Atoms/Buttons/ButtonPrimary.vue';
       <img src="/crafter.svg" alt="crafter" class="w-[250px] h-[350px]" />
     </figure>
     <div class="card-body">
-      <h2 class="card-title">La boutique de l'artisan</h2>
-      <p>La description de l'artisan</p>
+      <h2 class="card-title">{{props.crafter.crafter_name}}</h2>
+      <p>{{props.crafter.information}}</p>
       <div class="card-actions justify-end">
-        <RouterLink to="/crafter">
+        <RouterLink :to="{ name: 'crafter', params: { id: props.crafter.id } }">
           <ButtonPrimary label="Visiter" />
         </RouterLink>
       </div>

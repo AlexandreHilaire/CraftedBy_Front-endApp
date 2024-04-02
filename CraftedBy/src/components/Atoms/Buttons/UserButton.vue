@@ -3,7 +3,8 @@ import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
 
-const isAuth = userStore.isAuth;
+const store = useUserStore();
+
 
 const logout = async () => {
     await userStore.logout();
@@ -21,13 +22,15 @@ const logout = async () => {
             class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
         >
             <li></li>
-            <li v-if="isAuth">
-                <a class="justify-between">Profil</a>
+            <li v-if="store.isAuth">
+                <RouterLink to="/dashboard">
+                    <a class="justify-between">Profil</a>
+                </RouterLink>
             </li>
-            <li v-if="isAuth">
+            <li v-if="store.isAuth">
                 <a>Paramètres</a>
             </li>
-            <li v-if="isAuth">
+            <li v-if="store.isAuth">
                 <a @click="logout">Déconnexion</a>
             </li>
             <li v-else>
