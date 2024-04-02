@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
-    const isAuth = ref(JSON.parse(localStorage.getItem('USER')));
+    const isAuth = ref(JSON.parse(localStorage.getItem('USER')).isAuth);
     const url = import.meta.env.VITE_URL;
     const apiUrl = import.meta.env.VITE_API_URL;
 
