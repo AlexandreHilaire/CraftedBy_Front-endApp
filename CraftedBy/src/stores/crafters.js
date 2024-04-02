@@ -28,6 +28,15 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
-    return {fetchCrafters, fetchCrafterData, crafters, crafterData};
+    async function createCrafter(user_id, crafter_name, location, information, story, crafting_process, material_preference) {
+        try{
+            await axios.post(`${apiUrl}/crafters`, {user_id, crafter_name, location, information, story, crafting_process, material_preference});
+        }
+        catch (error){
+            console.log('erreur lors de la création du crafter', error)
+        }
+    }
+
+    return {fetchCrafters, fetchCrafterData, createCrafter, crafters, crafterData};
 
 });
