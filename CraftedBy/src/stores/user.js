@@ -6,10 +6,12 @@ export const useUserStore = defineStore('user', () => {
     const isAuth = ref(JSON.parse(localStorage.getItem('USER')).isAuth);
     const url = import.meta.env.VITE_URL;
     const apiUrl = import.meta.env.VITE_API_URL;
+    
 
     async function login(email, password) {
         try {
             await axios.post(`${url}/login`, {email, password} );
+            console.log("coucou")
             isAuth.value = true;
             localStorage.setItem('USER', JSON.stringify({isAuth : true}));             
         }
@@ -32,7 +34,7 @@ export const useUserStore = defineStore('user', () => {
         try{
             const response = await axios.get(`${apiUrl}/user`);
             const user = response.data;
-            console.log(user);
+            return user;
         }
         catch (error){
             console.log("error fetching data", error);
