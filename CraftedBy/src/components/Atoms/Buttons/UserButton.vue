@@ -23,7 +23,7 @@ const logout = async () => {
         >
             <li></li>
             <li v-if="store.isAuth">
-                <RouterLink to='/dashboard'>
+                <RouterLink to="/dashboard">
                     <a class="justify-between">Profil</a>
                 </RouterLink>
             </li>
