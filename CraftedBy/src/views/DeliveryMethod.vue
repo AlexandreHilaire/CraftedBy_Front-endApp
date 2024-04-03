@@ -6,6 +6,7 @@ let pickupRelayList = ['relais1', 'relais2', 'relais3']
 let deliveryMethodChoice = ref(null)
 
 const orderStore = useOrderStore();
+
 </script>
 
 <template>
@@ -23,9 +24,7 @@ const orderStore = useOrderStore();
 
   <div v-if="deliveryMethodChoice == 'home'" class="m-5 flex flex-col items-center justify-center">
     <p>Votre Adresse de livraison est :</p>
-    <p>Lalala rue du test avant backend</p>
-    <p>département des enfers</p>
-    <p>FRANCE</p>
+    <p>{{orderStore.selectedDeliveryAddress}}</p>
   </div>
 
   <div v-if="deliveryMethodChoice == 'pickRelay'" class="m-5 flex flex-col items-center justify-center">
