@@ -2,19 +2,24 @@
 import  { userCartStore } from '@/stores/cart';
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import Steps from '@/components/Organisms/Steps.vue';
+import { useOrderStore } from '@/stores/orders';
 
 const cartStore = userCartStore();
+const orderStore = useOrderStore();
 
 function removeProduct(id){
-   cartStore.removeProductFromCart(id);
+  cartStore.removeProductFromCart(id);
 }
 function addProductToCart(item) {
-   cartStore.addProductToCart(item);
+  cartStore.addProductToCart(item);
 }
 function removeOneQuantityProductFromCart(itemId) {
-   cartStore.removeOneProductQuantityFormCart(itemId);
+  cartStore.removeOneProductQuantityFormCart(itemId);
 }
 
+function validatedCart(){
+  orderStore.validatedCart(cartStore.cartItems);
+}
 
 </script>
 
@@ -79,7 +84,7 @@ function removeOneQuantityProductFromCart(itemId) {
   </table>
   <div class = "flex justify-end mt-4 items-end">
     <RouterLink :to="{name: 'deliveryAddresses' }">
-      <ButtonPrimary :label="'Poursuivre'" />
+      <ButtonPrimary :label="'Poursuivre'" @click="validatedCart"/>
     </RouterLink>
   </div>
 </div>
