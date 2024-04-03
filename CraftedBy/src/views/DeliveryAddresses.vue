@@ -1,8 +1,10 @@
 <script setup>
+import { useOrderStore } from '@/stores/orders';
 import { useUserStore } from '@/stores/user';
-import { onBeforeMount, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const userStore = useUserStore();
+const orderStore = useOrderStore();
 const user = ref();
 const user_id = ref();
 // * UserAddresses array
@@ -15,7 +17,13 @@ const loadAddresses = async () => {
 };
 loadAddresses();
 
+const selectedDeliveryAddress = ref()
 
+const selectedBillingAddress = ref()
+
+function validatedAddresses () { 
+orderStore.validatedAddresses(selectedDeliveryAddress.value, selectedBillingAddress.value);
+};
 
 </script>
 
@@ -28,13 +36,13 @@ loadAddresses();
         <div class="card-body items-center text-center">
           <h2 class="card-title">Sélectionnez une adresse de livraison</h2>
           <div class="card-actions justify-end">
-            <select class="select select-bordered w-full max-w-xs">
+            <select v-model="selectedDeliveryAddress" class="select select-bordered w-full max-w-xs">
               <option v-for="address in userAddresses.addresses" :key="address.id">
                 {{ address.address_name }},
                 {{ address.address_firstname }},
                 {{ address.address_lastname }},
-                {{address.first_address}},
-                {{address.postal_code}}
+                {{ address.first_address }},
+                {{ address.postal_code }}
               </option>
             </select>
           </div>
@@ -45,13 +53,13 @@ loadAddresses();
         <div class="card-body items-center text-center">
           <h2 class="card-title">Sélectionnez une adresse de facturation</h2>
           <div class="card-actions justify-end">
-            <select class="select select-bordered w-full max-w-xs">
+            <select v-model="selectedBillingAddress" class="select select-bordered w-full max-w-xs">
               <option v-for="address in userAddresses.addresses" :key="address.id">
                 {{ address.address_name }},
                 {{ address.address_firstname }},
                 {{ address.address_lastname }},
-                {{address.first_address}},
-                {{address.postal_code}}
+                {{ address.first_address }},
+                {{ address.postal_code }}
               </option>
             </select>
           </div>
@@ -60,7 +68,7 @@ loadAddresses();
     </div>
     <div class="flex place-content-center mt-4">
       <RouterLink :to="{ name: 'deliveryMethod' }">
-        <ButtonPrimary :label="'Poursuivre'" />
+        <ButtonPrimary :label="'Poursuivre'" @click="validatedAddresses"/>
       </RouterLink>
     </div>
   </div>
