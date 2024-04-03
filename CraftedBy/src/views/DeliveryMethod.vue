@@ -1,8 +1,11 @@
 <script setup>
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue'
+import { useOrderStore } from '@/stores/orders'
 import { ref } from 'vue'
 let pickupRelayList = ['relais1', 'relais2', 'relais3']
 let deliveryMethodChoice = ref(null)
+
+const orderStore = useOrderStore();
 </script>
 
 <template>
