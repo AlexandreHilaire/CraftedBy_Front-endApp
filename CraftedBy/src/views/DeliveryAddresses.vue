@@ -1,31 +1,35 @@
 <script setup>
-import axios from 'axios'
-import { ref } from 'vue'
+import { useUserStore } from '@/stores/user';
+import { onBeforeMount, reactive, ref } from 'vue';
 
-const user = ref()
-axios
-  .get('https://fakestoreapi.com/users/1')
-  .then((response) => {
-    console.log(response.data)
-    user.value = response.data
-  })
-  .catch((error) => {
-    console.error(error)
-  })
+const tab = ref([ 0,1,2,3 ]);
+const userStore = useUserStore();
+const user = ref();
+const user_id = ref();
+const userAddresses = reactive({});
+const loadAddresses = async () => {
+  user.value = await userStore.userAuth();
+  user_id.value = user.value.id;
+  userAddresses.addresses = await userStore.fetchUserData(user_id.value);
+};
+loadAddresses();
+
+
+
 </script>
 
 <template>
 <div class="mx-auto flex flex-col items-center">
     <Steps />
-    <p>{{ user.username }}</p>
+    <p>nom user</p>
     <div class="flex flex-row w-full space-x-4 justify-center m-10">
       <div class="card w-96 bg-slate-600 text-neutral-content">
         <div class="card-body items-center text-center">
-          <h2 class="card-title">Selectionnez une adresse de livraison</h2>
+          <h2 class="card-title">Sélectionnez une adresse de livraison</h2>
           <div class="card-actions justify-end">
             <select class="select select-bordered w-full max-w-xs">
-              <option v-for="address in user.address" :key="address" value="address">
-                {{ address }}
+              <option v-for="address in userAddresses.addresses" :key="address.id">
+                {{ address.address_firstname }}
               </option>
             </select>
           </div>
@@ -34,11 +38,11 @@ axios
       <div class="divider divider-horizontal"></div>
       <div class="card w-96 bg-slate-600 text-neutral-content">
         <div class="card-body items-center text-center">
-          <h2 class="card-title">Selectionnez une adresse de facturation</h2>
+          <h2 class="card-title">Sélectionnez une adresse de facturation</h2>
           <div class="card-actions justify-end">
             <select class="select select-bordered w-full max-w-xs">
-              <option v-for="address in user.address" :key="address" value="address">
-                {{ address }}
+              <option v-for="address in userAddresses.addresses" :key="address.id">
+                {{ address.address_firstname }}
               </option>
             </select>
           </div>
