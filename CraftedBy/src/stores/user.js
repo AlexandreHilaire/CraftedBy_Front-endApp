@@ -48,7 +48,18 @@ export const useUserStore = defineStore('user', () => {
             console.log("erreur lors de l'enregistrement", error);
         }
     }
-    
-    return {login, logout, userAuth, register, isAuth};
+    const userAdresses = ref();
+    async function fetchUserData(id){
+        try {
+            const response = await axios.get(`${apiUrl}/addresses/search/${id}`);
+            userAdresses.value = response.data
+            return userAdresses;
+        }
+        catch (error) {
+            console.log('error fetching data', error);
+        }
+    }
+
+    return {login, logout, userAuth, register, fetchUserData, isAuth};
 
 });
