@@ -1,14 +1,15 @@
-import './assets/main.css'
+import './assets/main.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import axios from 'axios';
+// * Axios manage auth cookies himself 
 
-import App from './App.vue'
-import router from './router'
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
 
-const app = createApp(App)
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
-app.use(createPinia())
-app.use(router)
+import App from './App.vue';
+import router from './router';
 
-app.mount('#app')
+createApp(App).use(router).use(createPinia()).mount('#app');
