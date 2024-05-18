@@ -40,7 +40,7 @@ jobs:
         with:
           context: ./CraftedBy
           push: true
-          tags: ${{ TAGS }}
+          tags: ${{ secrets.TAGS }}
           labels: ${{ steps.meta.outputs.labels }}
         
       - name: Generate artifact attestation
