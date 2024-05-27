@@ -9,11 +9,12 @@ const user = ref();
 const user_id = ref();
 // * UserAddresses array
 const userAddresses = reactive({});
+
 const loadAddresses = async () => {
   user.value = await userStore.userAuth();
   user_id.value = user.value.id;
 // * make an array of addresses (display problems before do this)
-  userAddresses.addresses = await userStore.fetchUserData(user_id.value);
+  userAddresses.addresses = await userStore.fetchUserAdresses(user_id.value);
 };
 loadAddresses();
 

@@ -21,7 +21,6 @@ if (user) {
     async function login(email, password) {
         try {
             await axios.post(`${url}/login`, {email, password} );
-            console.log("coucou")
             isAuth.value = true;
             localStorage.setItem('USER', JSON.stringify({isAuth : true}));             
         }
@@ -59,7 +58,7 @@ if (user) {
         }
     }
     const userAdresses = ref();
-    async function fetchUserData(id){
+    async function fetchUserAdresses(id){
         try {
             const response = await axios.get(`${apiUrl}/addresses/search/${id}`);
             userAdresses.value = response.data
@@ -70,6 +69,6 @@ if (user) {
         }
     }
 
-    return {login, logout, userAuth, register, fetchUserData, isAuth};
+    return {login, logout, userAuth, register, fetchUserAdresses, isAuth};
 
 });
