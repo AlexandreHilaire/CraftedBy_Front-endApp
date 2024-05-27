@@ -18,7 +18,7 @@ onBeforeMount(async () => {
     <div class="flex justify-center items-center flex-col">
         <div class="avatar">
             <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
         </div>
         <div>
@@ -27,9 +27,16 @@ onBeforeMount(async () => {
             <p> Nom : {{user.firstname}} </p>
             <p>Prénom : {{user.lastname}}</p>
             <p>Numéro de téléphone : {{user.phone_number}} </p>
+
         </div>
-        <RouterLink to="/createCrafter">
-            <ButtonPrimary label="Créer une page crafter" />
-        </RouterLink>
+
+        <div class="d-flex">
+            <RouterLink to="/createCrafter">
+                <ButtonPrimary label="Créer une page crafter" class="m-5" />
+            </RouterLink>
+            <RouterLink to="/editAdresses">
+                <ButtonPrimary label="Éditer mes adresses"  class="m-5"/>
+            </RouterLink>
+        </div>
     </div>
 </template>
