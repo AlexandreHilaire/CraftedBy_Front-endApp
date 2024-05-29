@@ -4,6 +4,7 @@ import ValidateFormsButton from '../Atoms/Buttons/ValidateFormsButton.vue';
 import { useRoute } from 'vue-router';
 import { useCraftersStore } from '@/stores/crafters';
 import { useUserStore } from '@/stores/user';
+import Input from '@/components/Atoms/Inputs/Input.vue';
 import axios from 'axios';
 
 const crafterStore = useCraftersStore();
@@ -37,12 +38,16 @@ const searchAdress = async () => {
     try {
         const response = await axios.post('http://localhost:8000/searchAdress', { query: queryAdress.value });
         results.value = response.data.features;
-        console.log(results);
     }
     catch (error) {
         console.error('error fetching data');
     }
 };
+
+const addressName = ref('');
+const customerName = ref('');
+const numberAndStreet = ref('');
+const postalCode = ref('');
 
 const submitForm = async () => {
     if (route.name === "createCrafter") {
@@ -55,6 +60,7 @@ const submitForm = async () => {
 </script>
 <template>
     <form @submit.prevent='submitForm' class="flex flex-col gap-2">
+        <!-- * Crafters -->
         <div v-if="route.name === 'createCrafter'" class="flex flex-col">
             <label class="input input-bordered flex items-center gap-2 m-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -80,10 +86,26 @@ const submitForm = async () => {
             <textarea class="textarea textarea-bordered m-2" placeholder="Ce que j'aime le plus travailler"
                 v-model="material_preference"></textarea>
         </div>
-        <div v-if="route.name === 'createAdress'">
+        <!-- * end crafters -->
+        <!-- * Adress -->
+        <div v-if="route.name === 'createAdress'" class="flex flex-col justify-center items-center gap-5">
             <textarea class="textarea textarea-bordered" placeholder="recherchez votre adresse" v-model="queryAdress"
                 @keyup="searchAdress"></textarea>
+            <div v-if="results != ''" class="dropdown dropdown-open">
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li v-for="(line, index) in results" :key=index>
+                        <a>{{ line.properties.label }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-5">
+                <Input type="text" placeholder="Nom de l'adresse" v-model="addressName" />
+                <Input type="text" placeholder="Nom du destinataire" v-model="customerName" />
+                <Input type="text" placeholder="numéro et nom de la voie" v-model="numberAndStreet" />
+                <Input type="text" placeholder="code postal" v-model="postalCode" />
+            </div>
         </div>
+        <!-- * end Adress -->
         <ValidateFormsButton label="Valider" />
     </form>
 </template>
