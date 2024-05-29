@@ -49,6 +49,11 @@ const customerName = ref('');
 const numberAndStreet = ref('');
 const postalCode = ref('');
 
+function setAddressesInputsValue(address) {
+    numberAndStreet.value = address.name;
+    postalCode.value = address.postcode;
+}
+
 const submitForm = async () => {
     if (route.name === "createCrafter") {
         await submitCreateCrafter();
@@ -94,15 +99,15 @@ const submitForm = async () => {
             <div v-if="results != ''" class="dropdown dropdown-open">
                 <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li v-for="(line, index) in results" :key=index>
-                        <a>{{ line.properties.label }}</a>
+                        <a @click="setAddressesInputsValue(line.properties)">{{ line.properties.label }}</a>
                     </li>
                 </ul>
             </div>
             <div class="flex flex-col gap-5">
-                <Input type="text" placeholder="Nom de l'adresse" v-model="addressName" />
-                <Input type="text" placeholder="Nom du destinataire" v-model="customerName" />
-                <Input type="text" placeholder="numéro et nom de la voie" v-model="numberAndStreet" />
-                <Input type="text" placeholder="code postal" v-model="postalCode" />
+                <input type="text" placeholder="Nom de l'adresse" class="input input-bordered input-primary w-full max-w-xs" v-model="addressName" />
+                <input type="text" placeholder="nom du destinataire" class="input input-bordered input-primary w-full max-w-xs" v-model="customerName" />
+                <input type="text" placeholder="Numéro et nom de voie" class="input input-bordered input-primary w-full max-w-xs" v-model="numberAndStreet" />
+                <input type="text" placeholder="Code postal" class="input input-bordered input-primary w-full max-w-xs" v-model="postalCode" />
             </div>
         </div>
         <!-- * end Adress -->
