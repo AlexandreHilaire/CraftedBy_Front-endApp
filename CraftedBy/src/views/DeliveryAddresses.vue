@@ -1,7 +1,9 @@
 <script setup>
+import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import { useOrderStore } from '@/stores/orders';
 import { useUserStore } from '@/stores/user';
 import { reactive, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const userStore = useUserStore();
 const orderStore = useOrderStore();
@@ -9,11 +11,12 @@ const user = ref();
 const user_id = ref();
 // * UserAddresses array
 const userAddresses = reactive({});
+
 const loadAddresses = async () => {
   user.value = await userStore.userAuth();
   user_id.value = user.value.id;
 // * make an array of addresses (display problems before do this)
-  userAddresses.addresses = await userStore.fetchUserData(user_id.value);
+  userAddresses.addresses = await userStore.fetchUserAdresses(user_id.value);
 };
 loadAddresses();
 
@@ -65,6 +68,11 @@ orderStore.validatedAddresses(selectedDeliveryAddress.value, selectedBillingAddr
           </div>
         </div>
       </div>
+    </div>
+    <div class="flex place-content-center">
+      <RouterLink to="/createAdress">
+        <ButtonPrimary label="Créer une nouvelle adresse"/>
+      </RouterLink>
     </div>
     <div class="flex place-content-center mt-4">
       <RouterLink :to="{ name: 'deliveryMethod' }">

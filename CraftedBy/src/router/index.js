@@ -12,6 +12,8 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import CreateCrafterView from '@/views/CreateCrafterView.vue'
+import EditAdresses from '@/views/EditAdresses.vue';
+import CreateAdress from '@/views/CreateAdress.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +82,16 @@ const router = createRouter({
       path: '/createCrafter',
       name: 'createCrafter',
       component:CreateCrafterView,
+    },
+    {
+      path: '/editAdresses',
+      name: 'editAdresses',
+      component: EditAdresses,
+    },
+    {
+      path: '/createAdress',
+      name: 'createAdress',
+      component: CreateAdress,
     },
     {
       path: '/about',

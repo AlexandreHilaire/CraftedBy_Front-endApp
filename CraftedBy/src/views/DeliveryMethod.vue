@@ -24,7 +24,7 @@ const orderStore = useOrderStore();
 
   <div v-if="deliveryMethodChoice == 'home'" class="m-5 flex flex-col items-center justify-center">
     <p>Votre Adresse de livraison est :</p>
-    <p>{{orderStore.selectedDeliveryAddress}}</p>
+    <p>{{orderStore.delivery_address}}</p>
   </div>
 
   <div v-if="deliveryMethodChoice == 'pickRelay'" class="m-5 flex flex-col items-center justify-center">
