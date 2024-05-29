@@ -1,7 +1,9 @@
 <script setup>
+import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import { useOrderStore } from '@/stores/orders';
 import { useUserStore } from '@/stores/user';
 import { reactive, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const userStore = useUserStore();
 const orderStore = useOrderStore();
@@ -66,6 +68,11 @@ orderStore.validatedAddresses(selectedDeliveryAddress.value, selectedBillingAddr
           </div>
         </div>
       </div>
+    </div>
+    <div class="flex place-content-center">
+      <RouterLink to="/createAdress">
+        <ButtonPrimary label="Créer une nouvelle adresse"/>
+      </RouterLink>
     </div>
     <div class="flex place-content-center mt-4">
       <RouterLink :to="{ name: 'deliveryMethod' }">
