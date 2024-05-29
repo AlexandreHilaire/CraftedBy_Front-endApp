@@ -4,11 +4,12 @@ import ValidateFormsButton from '../Atoms/Buttons/ValidateFormsButton.vue';
 import { useRoute } from 'vue-router';
 import { useCraftersStore } from '@/stores/crafters';
 import { useUserStore } from '@/stores/user';
-import Input from '@/components/Atoms/Inputs/Input.vue';
 import axios from 'axios';
+import { useAddressesStore } from '@/stores/addresses';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
+const addressStore = useAddressesStore();
 const user = ref();
 
 onBeforeMount(async () => {
@@ -30,6 +31,8 @@ const submitCreateCrafter = async () => {
     await crafterStore.createCrafter(user_id, crafter_name.value, location.value, information.value, story.value, crafting_process.value, material_preference.value);
 }
 
+// End Crafter form
+
 // Adress form
 const queryAdress = ref('');
 const results = ref([]);
@@ -45,8 +48,11 @@ const searchAdress = async () => {
 };
 
 const addressName = ref('');
-const customerName = ref('');
+const customerFirstName = ref('');
+const customerLastName = ref('');
+const AdressType = ref();
 const numberAndStreet = ref('');
+const numberAndStreet2 = ref(numberAndStreet);
 const postalCode = ref('');
 
 function setAddressesInputsValue(address) {
@@ -54,9 +60,18 @@ function setAddressesInputsValue(address) {
     postalCode.value = address.postcode;
 }
 
+const submitCreateAddress = async () => {
+    const user_id = user.value.id;
+    await addressStore.createAddress(user_id, addressName.value, AdressType.value, customerFirstName.value, customerLastName.value, numberAndStreet.value, numberAndStreet2.value, postalCode.value);
+}
+// End Adress form
+
 const submitForm = async () => {
     if (route.name === "createCrafter") {
         await submitCreateCrafter();
+    }
+    else if (route.name === "createAdress") {
+        await submitCreateAddress();
     }
     else {
         return;
@@ -104,10 +119,18 @@ const submitForm = async () => {
                 </ul>
             </div>
             <div class="flex flex-col gap-5">
-                <input type="text" placeholder="Nom de l'adresse" class="input input-bordered input-primary w-full max-w-xs" v-model="addressName" />
-                <input type="text" placeholder="nom du destinataire" class="input input-bordered input-primary w-full max-w-xs" v-model="customerName" />
-                <input type="text" placeholder="Numéro et nom de voie" class="input input-bordered input-primary w-full max-w-xs" v-model="numberAndStreet" />
-                <input type="text" placeholder="Code postal" class="input input-bordered input-primary w-full max-w-xs" v-model="postalCode" />
+                <input type="text" placeholder="Nom de l'adresse"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="addressName" />
+                <input type="text" placeholder="nom du destinataire"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="customerFirstName" />
+                <input type="text" placeholder="prénom du destinataire"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="customerLastName" />
+                <input type="text" placeholder="type d'adresse"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="AdressType" />
+                <input type="text" placeholder="Numéro et nom de voie"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="numberAndStreet" />
+                <input type="text" placeholder="Code postal" class="input input-bordered input-primary w-full max-w-xs"
+                    v-model="postalCode" />
             </div>
         </div>
         <!-- * end Adress -->
