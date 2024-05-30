@@ -72,11 +72,11 @@ const submitCreateAddress = async () => {
 
 const fileToUpload = ref(null);
 
+// * Take the file
 const fileUpload = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
         fileToUpload.value = selectedFile;
-        console.log('fichier', fileToUpload.value);
     }
 }
 

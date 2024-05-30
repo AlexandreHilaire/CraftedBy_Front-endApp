@@ -5,8 +5,9 @@ import { ref } from 'vue'
 export const useUploadsStore = defineStore('uploads', () => {
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  const results = ref(null);
+  const mindeeResults = ref(null);
   
+  // * Mindee IDCards checker
   async function MindeeCheck (file) {
   
     const formData = new FormData();
@@ -18,13 +19,12 @@ export const useUploadsStore = defineStore('uploads', () => {
           'content-type': 'multipart/form-data',
         },
       });
-      results.value = response.data;
-      console.log(results.value);
+      mindeeResults.value = response.data;
     }
     catch (error) {
       console.log('error uploading file', error);
     }
   }
 
-  return {MindeeCheck, results};
+  return {MindeeCheck, mindeeResults};
 });
