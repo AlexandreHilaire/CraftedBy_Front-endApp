@@ -6,10 +6,12 @@ import { useCraftersStore } from '@/stores/crafters';
 import { useUserStore } from '@/stores/user';
 import axios from 'axios';
 import { useAddressesStore } from '@/stores/addresses';
+import { useUploadsStore } from '@/stores/uploads';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
 const addressStore = useAddressesStore();
+const uploadStore = useUploadsStore();
 const user = ref();
 
 onBeforeMount(async () => {
@@ -66,6 +68,25 @@ const submitCreateAddress = async () => {
 }
 // End Adress form
 
+// Mindee
+
+const fileToUpload = ref(null);
+
+// * Take the file
+const fileUpload = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+        fileToUpload.value = selectedFile;
+    }
+}
+
+const submitIDCard = async () => {
+    const file = fileToUpload.value;
+    await uploadStore.MindeeCheck(file);
+}
+
+// End Mindee
+
 const submitForm = async () => {
     if (route.name === "createCrafter") {
         await submitCreateCrafter();
@@ -73,13 +94,16 @@ const submitForm = async () => {
     else if (route.name === "createAdress") {
         await submitCreateAddress();
     }
+    else if (route.name === "identityParse"){
+        await submitIDCard();
+    }
     else {
         return;
     }
 }
 </script>
 <template>
-    <form @submit.prevent='submitForm' class="flex flex-col gap-2">
+    <form @submit.prevent='submitForm' class="flex flex-col justify-center items-center gap-2">
         <!-- * Crafters -->
         <div v-if="route.name === 'createCrafter'" class="flex flex-col">
             <label class="input input-bordered flex items-center gap-2 m-2">
@@ -134,6 +158,12 @@ const submitForm = async () => {
             </div>
         </div>
         <!-- * end Adress -->
+        <!-- * ID Card -->
+        <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
+            <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
+            <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" @change="fileUpload" />
+        </div>
+        <!-- * End ID Card -->
         <ValidateFormsButton label="Valider" />
     </form>
 </template>

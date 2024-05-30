@@ -37,6 +37,9 @@ onBeforeMount(async () => {
             <RouterLink to="/editAdresses">
                 <ButtonPrimary label="Éditer mes adresses"  class="m-5"/>
             </RouterLink>
+            <RouterLink to="/IdentityParse">
+                <ButtonPrimary label="Vérifier mon identité"  class="m-5"/>
+            </RouterLink>
         </div>
     </div>
 </template>

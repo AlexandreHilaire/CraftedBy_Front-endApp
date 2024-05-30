@@ -14,6 +14,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import CreateCrafterView from '@/views/CreateCrafterView.vue'
 import EditAdresses from '@/views/EditAdresses.vue';
 import CreateAdress from '@/views/CreateAdress.vue';
+import IdentityParse from '@/views/IdentityParse.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,6 +93,11 @@ const router = createRouter({
       path: '/createAdress',
       name: 'createAdress',
       component: CreateAdress,
+    },
+    {
+      path: '/identityParse',
+      name: 'identityParse',
+      component: IdentityParse,
     },
     {
       path: '/about',
