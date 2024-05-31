@@ -38,7 +38,9 @@ const createOrder = async () => {
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Stripe</h3>
-      <StripeButton />
+      <RouterLink to="/stripe">
+        <StripeButton />
+      </RouterLink>
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Paypal</h3>

@@ -15,6 +15,7 @@ import CreateCrafterView from '@/views/CreateCrafterView.vue'
 import EditAdresses from '@/views/EditAdresses.vue';
 import CreateAdress from '@/views/CreateAdress.vue';
 import IdentityParse from '@/views/IdentityParse.vue';
+import Stripe from '@/views/Stripe.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +99,11 @@ const router = createRouter({
       path: '/identityParse',
       name: 'identityParse',
       component: IdentityParse,
+    },
+    {
+      path: '/Stripe',
+      name: 'stripe',
+      component: Stripe,
     },
     {
       path: '/about',
