@@ -1,6 +1,6 @@
 <script setup>
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
-import ValidateFormsButton from '@/components/Atoms/Buttons/ValidateFormsButton.vue';
+import { useOrderStore } from '@/stores/orders';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
@@ -10,26 +10,20 @@ const stripeKey = import.meta.env.VITE_PUBLIC_STRIPE;
 const token = ref(null);
 const stripe = ref(null);
 const cardElement = ref(null);
+const orderStore = useOrderStore();
 
 onMounted(async () => {
 
   try {
     const response = await axios.post(`${apiUrl}/payment/initiate`, {
-      amount: 150,
+      order_id: orderStore.order_id,
       currency: 'EUR'
     });
-
-    console.log(response);
     token.value = response.data.token;
     stripe.value = await loadStripe(stripeKey);
-    console.log('cle', stripeKey);
-    console.log('elements', stripe.value);
     const options = {
       clientSecret: response.data.client_secret,
     };
-    console.log('clients', options);
-    console.log('response', response.data);
-
     cardElement.value = stripe.value.elements(options);
     const paymentElement = cardElement.value.create('payment');
     paymentElement.mount('#cardElement');
