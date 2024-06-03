@@ -1,4 +1,5 @@
 <script setup>
+import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import ValidateFormsButton from '@/components/Atoms/Buttons/ValidateFormsButton.vue';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
@@ -29,9 +30,9 @@ onMounted(async () => {
     console.log('clients', options);
     console.log('response', response.data);
 
-    const elements = stripe.value.elements(options);
-    cardElement.value = elements.create('payment', options);
-    cardElement.value.mount('#cardElement');
+    cardElement.value = stripe.value.elements(options);
+    const paymentElement = cardElement.value.create('payment');
+    paymentElement.mount('#cardElement');
   }
   catch (error) {
     console.log('error initiate payment', error);
@@ -66,6 +67,6 @@ const submitPayment = async (e) => {
     <div id="cardElement">
 
     </div>
-    <ValidateFormsButton label="Payer avec Stripe" @click="submitPayment" />
+    <ButtonPrimary label="Payer avec Stripe" @click="submitPayment" />
   </div>
 </template>
