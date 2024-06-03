@@ -12,43 +12,51 @@ const cardElement = ref(null);
 
 onMounted(async () => {
 
-  axios.post(`${apiUrl}/payment/initiate`, {
-    amount: 150,
-    currency: 'EUR'
-  }).then(response => {
-    token.value = response.data.token
-    stripe.value = loadStripe(stripeKey);
-    // il faut faire de l'asynchrone le loafstripe met du temps...
+  try {
+    const response = await axios.post(`${apiUrl}/payment/initiate`, {
+      amount: 150,
+      currency: 'EUR'
+    });
+
+    console.log(response);
+    token.value = response.data.token;
+    stripe.value = await loadStripe(stripeKey);
+    console.log('cle', stripeKey);
+    console.log('elements', stripe.value);
     const options = {
-      clientSecret: response.data.clientSecret,
-    }
-    cardElement.value = stripe.value.elements(options);
-    const paymentElement = cardElement.value.create('payment');
-    paymentElement.mount('#cardElement');
-  }).catch(error => {
-    console.log('error payment', error);
-  });
+      clientSecret: response.data.client_secret,
+    };
+    console.log('clients', options);
+    console.log('response', response.data);
+
+    const elements = stripe.value.elements(options);
+    cardElement.value = elements.create('payment', options);
+    cardElement.value.mount('#cardElement');
+  }
+  catch (error) {
+    console.log('error initiate payment', error);
+  }
 });
 
 const submitPayment = async (e) => {
   e.preventDefault();
 
-    const { error } = await stripe.value.confirmPayment({
-        elements: cardElement.value,
-        redirect: "if_required"
-    });
+  const { error } = await stripe.value.confirmPayment({
+    elements: cardElement.value,
+    redirect: "if_required"
+  });
 
-    if (error === undefined) {
-        axios.post(`${apiUrl}/payment/complete`, {
-            token: token.value,
-        });
-    } else {
-        axios.post(`${apiUrl}/payment/failure`, {
-            token: token.value,
-            code: error.code,
-            description: error.message,
-        });
-    };
+  if (error === undefined) {
+    axios.post(`${apiUrl}/payment/complete`, {
+      token: token.value,
+    });
+  } else {
+    axios.post(`${apiUrl}/payment/failure`, {
+      token: token.value,
+      code: error.code,
+      description: error.message,
+    });
+  };
 };
 </script>
 
