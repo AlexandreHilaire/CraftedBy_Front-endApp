@@ -46,7 +46,7 @@ export const userCartStore = defineStore('cart', () => {
     const totalPrice = computed(() => {
         // * reduce() : reduce the array on each elements, resulting in a single value.
         return (cartItems.value.reduce((total, item) => total + (item.unit_price * item.quantity), 0)).toFixed(2);
-      });
+    });
 
     return {
         cartItems,
