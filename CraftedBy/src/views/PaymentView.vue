@@ -14,12 +14,12 @@ const user_id = ref()
 const fetchUserId = async () => {
   user.value = await userStore.userAuth();
   user_id.value = user.value.id;
-  console.log(user_id.value)
 }
   fetchUserId();
 
 const createOrder = async () => {
-  orderStore.createOrder(user_id.value, orderStore.delivery_address, orderStore.facturation_address, orderStore.products)
+  orderStore.createOrder(user_id.value, orderStore.delivery_address, orderStore.facturation_address, orderStore.products);
+
 }
 
 </script>
@@ -34,17 +34,17 @@ const createOrder = async () => {
   <div class="m-5 mx-auto flex flex-row place-content-center">
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Carte bancaire</h3>
-      <CreditCardButton />
+      <CreditCardButton @click="createOrder" />
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Stripe</h3>
       <RouterLink to="/stripe">
-        <StripeButton />
+        <StripeButton @click="createOrder" />
       </RouterLink>
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Paypal</h3>
-      <PaypalButton />
+      <PaypalButton @click="createOrder" />
     </div>
   </div>
   <div class="flex place-content-center">
