@@ -85,7 +85,15 @@ const submitIDCard = async () => {
     await uploadStore.MindeeCheck(file);
 }
 
-// End Mindee
+// * End Mindee
+
+// * Stripe
+
+const token = ref(null);
+const stripe = ref(null);
+const elemements = ref(null);
+
+// * EndStripe
 
 const submitForm = async () => {
     if (route.name === "createCrafter") {
@@ -162,6 +170,11 @@ const submitForm = async () => {
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
             <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" @change="fileUpload" />
+        </div>
+        <div v-if="route.name === 'stripe'" class="flex flex-col justify-center items-center gap-5">
+            <div id="payment-element">
+            <!-- Stripe will create form elements here -->
+            </div>
         </div>
         <!-- * End ID Card -->
         <ValidateFormsButton label="Valider" />

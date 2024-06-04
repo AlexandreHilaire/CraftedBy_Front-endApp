@@ -9,8 +9,7 @@ export const useOrderStore = defineStore('order', () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const user_id = ref();
-
-    console.log("id", user_id.value)
+    const order_id = ref();
 
     const validatedCart = (cartItemsValidated) => {
 
@@ -29,11 +28,12 @@ export const useOrderStore = defineStore('order', () => {
     }
     async function createOrder(user_id, delivery_address, facturation_address, products) {
         try {
-            await axios.post(`${apiUrl}/orders`, { user_id, delivery_address, facturation_address, products })
+            const order = await axios.post(`${apiUrl}/orders`, { user_id, delivery_address, facturation_address, products });
+            order_id.value = order.data.id;
         }
         catch (error) {
             console.log('erreur de creation de commande', error)
         }
     }
-    return { validatedAddresses, validatedCart, createOrder, delivery_address, facturation_address, products, user_id };
+    return { validatedAddresses, validatedCart, createOrder, delivery_address, facturation_address, products, user_id, order_id };
 });
