@@ -51,6 +51,7 @@ const submitPayment = async (e) => {
     });
     console.log("CART",cartStore.totalPrice);
     cartStore.clearCart();
+    orderStore.createInvoice(orderStore.order_id);
     router.push({name:'home'});
   }
   else {
