@@ -1,9 +1,11 @@
 <script setup>
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
+import { userCartStore } from '@/stores/cart';
 import { useOrderStore } from '@/stores/orders';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import {useRouter} from 'vue-router';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const stripeKey = import.meta.env.VITE_PUBLIC_STRIPE;
@@ -11,6 +13,8 @@ const token = ref(null);
 const stripe = ref(null);
 const cardElement = ref(null);
 const orderStore = useOrderStore();
+const cartStore = userCartStore();
+const router = useRouter();
 
 onMounted(async () => {
 
@@ -43,9 +47,13 @@ const submitPayment = async (e) => {
 
   if (error === undefined) {
     axios.post(`${apiUrl}/payment/complete`, {
-      token: token.value,
+    token: token.value,
     });
-  } else {
+    console.log("CART",cartStore.totalPrice);
+    cartStore.clearCart();
+    router.push({name:'home'});
+  }
+  else {
     axios.post(`${apiUrl}/payment/failure`, {
       token: token.value,
       code: error.code,
