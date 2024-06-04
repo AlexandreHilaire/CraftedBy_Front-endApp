@@ -48,12 +48,18 @@ export const userCartStore = defineStore('cart', () => {
         return (cartItems.value.reduce((total, item) => total + (item.unit_price * item.quantity), 0)).toFixed(2);
     });
 
+    const clearCart = () => {
+        cartItems.value = [];
+        localStorage.setItem('CART', JSON.stringify(cartItems.value));
+    }
+
     return {
         cartItems,
         totalPrice,
         totalItemsQuantity,
         addProductToCart,
         removeProductFromCart,
-        removeOneProductQuantityFormCart
+        removeOneProductQuantityFormCart,
+        clearCart
     };
 });
