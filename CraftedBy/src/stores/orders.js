@@ -35,5 +35,18 @@ export const useOrderStore = defineStore('order', () => {
             console.log('erreur de creation de commande', error)
         }
     }
-    return { validatedAddresses, validatedCart, createOrder, delivery_address, facturation_address, products, user_id, order_id };
+
+    async function createInvoice (order_id) {
+        try {
+            const response = await axios.post(`${apiUrl}/invoice`, {order_id}, {responseType: 'blob'});
+            const blob = new Blob([response.data], {type: 'application/pdf'});
+            const url = window.URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        }
+        catch(error){
+            console.log('error creating invoice', error);
+        }
+
+    }
+    return { validatedAddresses, validatedCart, createOrder, createInvoice, delivery_address, facturation_address, products, user_id, order_id };
 });
