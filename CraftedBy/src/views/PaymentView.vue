@@ -5,11 +5,13 @@ import StripeButton from '@/components/Atoms/Buttons/StripeButton.vue'
 import { useOrderStore } from '@/stores/orders';
 import { useUserStore } from '@/stores/user';
 import { ref } from 'vue';
+import {useRouter} from 'vue-router';
 
 const userStore = useUserStore();
 const orderStore = useOrderStore();
 const user = ref();
 const user_id = ref()
+const router = useRouter();
 
 const fetchUserId = async () => {
   user.value = await userStore.userAuth();
@@ -18,8 +20,8 @@ const fetchUserId = async () => {
   fetchUserId();
 
 const createOrder = async () => {
-  orderStore.createOrder(user_id.value, orderStore.delivery_address, orderStore.facturation_address, orderStore.products);
-
+  await orderStore.createOrder(user_id.value, orderStore.delivery_address, orderStore.facturation_address, orderStore.products);
+  router.push({name:'stripe'});
 }
 
 </script>
@@ -38,9 +40,7 @@ const createOrder = async () => {
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Stripe</h3>
-      <RouterLink to="/stripe">
         <StripeButton @click="createOrder" />
-      </RouterLink>
     </div>
     <div class="m-5 flex flex-col">
       <h3 class="text-lg font-semibold">Paypal</h3>
