@@ -1,13 +1,19 @@
 <script setup>import { useUserStore } from '@/stores/user';
 import { onBeforeMount, ref } from 'vue';
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
-
+import axios from 'axios';
 
 const store = useUserStore();
 const user = ref();
+const userRole = ref();
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 onBeforeMount(async () => {
     user.value = await store.userAuth();
+    const userId = user.value.id;
+    userRole.value = await store.fetchUserRole(userId);
+    console.log("données user", userRole);
 });
 
 
@@ -27,6 +33,7 @@ onBeforeMount(async () => {
             <p> Nom : {{user.firstname}} </p>
             <p>Prénom : {{user.lastname}}</p>
             <p>Numéro de téléphone : {{user.phone_number}} </p>
+            <p>Role : {{ userRole }}</p>
 
         </div>
 
@@ -40,6 +47,10 @@ onBeforeMount(async () => {
             <RouterLink to="/IdentityParse">
                 <ButtonPrimary label="Vérifier mon identité"  class="m-5"/>
             </RouterLink>
+        </div>
+        <div v-if="userRole === 'crafter'" class="d-flex">
+            <h2 class="m-5 text-2xl">Mes pages crafter</h2>
+
         </div>
     </div>
 </template>
