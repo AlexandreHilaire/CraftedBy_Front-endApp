@@ -7,6 +7,9 @@ const store = useUserStore();
 const crafterStore = useCraftersStore();
 const user = ref();
 
+async function deleteCrafterPages(crafterPageId){
+    await crafterStore.deleteCrafterPage(crafterPageId);
+}
 
 onBeforeMount(async () => {
     user.value = await store.userAuth();
@@ -55,11 +58,11 @@ onBeforeMount(async () => {
                 <div class ="m-5">
                     <p class="m-5">{{ page.crafter_name }}</p>
                     <RouterLink :to="{ name: 'crafter', params: { id: page.id } }">
-                    <ButtonPrimary label="Voir la page" class="m-5"/>
+                        <ButtonPrimary label="Voir la page" class="m-5"/>
                     </RouterLink>
+                    <ButtonPrimary @click="deleteCrafterPages(page.id)" label="Supprimer"/>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
