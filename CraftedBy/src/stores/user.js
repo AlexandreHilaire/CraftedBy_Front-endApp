@@ -69,7 +69,7 @@ if (user) {
         }
     }
 
-    const userRole = ref();
+    const userRole = ref('');
     async function fetchUserRole(id){
         try {
             const response = await axios.get(`${apiUrl}/users/role/${id}`);
