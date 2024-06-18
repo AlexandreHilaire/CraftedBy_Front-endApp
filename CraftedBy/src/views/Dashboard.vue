@@ -1,19 +1,20 @@
 <script setup>import { useUserStore } from '@/stores/user';
 import { onBeforeMount, ref } from 'vue';
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
-import axios from 'axios';
+import { useCraftersStore } from '@/stores/crafters';
 
 const store = useUserStore();
+const crafterStore = useCraftersStore();
 const user = ref();
-const userRole = ref();
-const apiUrl = import.meta.env.VITE_API_URL;
 
 
 onBeforeMount(async () => {
     user.value = await store.userAuth();
     const userId = user.value.id;
-    userRole.value = await store.fetchUserRole(userId);
-    console.log("données user", userRole);
+    await store.fetchUserRole(userId);
+    if (store.userRole === 'crafter'){
+        crafterStore.fetchCrafterPages(userId);
+    }
 });
 
 
@@ -33,7 +34,7 @@ onBeforeMount(async () => {
             <p> Nom : {{user.firstname}} </p>
             <p>Prénom : {{user.lastname}}</p>
             <p>Numéro de téléphone : {{user.phone_number}} </p>
-            <p>Role : {{ userRole }}</p>
+            <p>Role : {{ store.userRole }}</p>
 
         </div>
 
@@ -48,8 +49,16 @@ onBeforeMount(async () => {
                 <ButtonPrimary label="Vérifier mon identité"  class="m-5"/>
             </RouterLink>
         </div>
-        <div v-if="userRole === 'crafter'" class="d-flex">
-            <h2 class="m-5 text-2xl">Mes pages crafter</h2>
+        <div v-if="store.userRole === 'crafter'" class="d-flex">
+            <h2 class="m-5 text-2xl justify-center">Mes pages crafter</h2>
+            <div v-for="page in crafterStore.crafterPages" :key="page.id" class="m-5 flex flex-col">
+                <div class ="m-5">
+                    <p class="m-5">{{ page.crafter_name }}</p>
+                    <RouterLink :to="{ name: 'crafter', params: { id: page.id } }">
+                    <ButtonPrimary label="Voir la page" class="m-5"/>
+                    </RouterLink>
+                </div>
+            </div>
 
         </div>
     </div>
