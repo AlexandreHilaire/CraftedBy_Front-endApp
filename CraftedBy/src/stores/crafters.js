@@ -37,6 +37,17 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
-    return {fetchCrafters, fetchCrafterData, createCrafter, crafters, crafterData};
+    const crafterPages = ref([]);
+    async function fetchCrafterPages(id) {
+        try{
+            const response =  await axios.get(`${apiUrl}/users/crafters/${id}`);
+            crafterPages.value = response.data;
+        }
+        catch(error){
+            console.log('error fetching crafterPages', error);
+        }
+    }
+
+    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, crafters, crafterData, crafterPages};
 
 });
