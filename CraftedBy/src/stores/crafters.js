@@ -47,7 +47,15 @@ export const useCraftersStore = defineStore('crafter', () => {
             console.log('error fetching crafterPages', error);
         }
     }
+    async function deleteCrafterPage(id){
+        try{
+            await axios.delete(`${apiUrl}/crafters/${id}`);
+        }
+        catch(error){
+            console.log('error deleting crafter page');
+        }
+    }
 
-    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, crafters, crafterData, crafterPages};
+    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, deleteCrafterPage, crafters, crafterData, crafterPages};
 
 });
