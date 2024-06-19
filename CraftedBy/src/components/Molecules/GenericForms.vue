@@ -47,6 +47,11 @@ const submitCreateCrafter = async () => {
     await crafterStore.createCrafter(user_id, crafter_name.value, location.value, information.value, story.value, crafting_process.value, material_preference.value);
 }
 
+const submitEditCrafter = async () => {
+    const userId = user.value.id;
+    await crafterStore.editCrafter(crafterStore.crafterData.id, userId, crafter_name.value, location.value, information.value, story.value, crafting_process.value, material_preference.value);
+}
+
 // End Crafter form
 
 // Adress form
@@ -103,18 +108,23 @@ const submitIDCard = async () => {
 
 
 const submitForm = async () => {
-    if (route.name === "createCrafter") {
-        await submitCreateCrafter();
-    }
-    else if (route.name === "createAdress") {
-        await submitCreateAddress();
-    }
-    else if (route.name === "identityParse"){
-        await submitIDCard();
-    }
-    else {
-        return;
-    }
+
+    switch (route.name) {
+        case 'createCrafter':
+            await submitCreateCrafter();
+            break;
+        case 'editCrafter':
+            await submitEditCrafter();
+            break;
+        case 'createAdress':
+            await submitCreateAddress();
+            break;
+        case 'identityParse':
+            await submitIDCard();
+            break;
+        default:
+            break;
+    };
 }
 </script>
 <template>
