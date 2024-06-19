@@ -37,6 +37,15 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
+    async function editCrafter(crafterId, user_id, crafter_name, location, information, story, crafting_process, material_preference) {
+        try{
+            await axios.put(`${apiUrl}/crafters/${crafterId}`, {user_id, crafter_name, location, information, story, crafting_process, material_preference})
+        }
+        catch (error){
+            console.log('error crafter edition', error);
+        }
+    }
+
     const crafterPages = ref([]);
     async function fetchCrafterPages(id) {
         try{
@@ -56,6 +65,6 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
-    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, deleteCrafterPage, crafters, crafterData, crafterPages};
+    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, deleteCrafterPage, editCrafter, crafters, crafterData, crafterPages};
 
 });
