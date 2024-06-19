@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user';
 import axios from 'axios';
 import { useAddressesStore } from '@/stores/addresses';
 import { useUploadsStore } from '@/stores/uploads';
+import { defineProps } from 'vue';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
@@ -14,8 +15,21 @@ const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
 const user = ref();
 
+const props = defineProps({
+    crafterId: String
+});
+
 onBeforeMount(async () => {
     user.value = await userStore.userAuth();
+    if (route.name === 'editCrafter') {
+        await crafterStore.fetchCrafterData(props.crafterId);
+        crafter_name.value = crafterStore.crafterData.crafter_name;
+        location.value = crafterStore.crafterData.location;
+        information.value = crafterStore.crafterData.information;
+        story.value = crafterStore.crafterData.story;
+        crafting_process.value = crafterStore.crafterData.crafting_process;
+        material_preference.value = crafterStore.crafterData.material_preference;
+    }
 });
 
 const route = useRoute();
@@ -87,13 +101,6 @@ const submitIDCard = async () => {
 
 // * End Mindee
 
-// * Stripe
-
-const token = ref(null);
-const stripe = ref(null);
-const elemements = ref(null);
-
-// * EndStripe
 
 const submitForm = async () => {
     if (route.name === "createCrafter") {
@@ -113,7 +120,7 @@ const submitForm = async () => {
 <template>
     <form @submit.prevent='submitForm' class="flex flex-col justify-center items-center gap-2">
         <!-- * Crafters -->
-        <div v-if="route.name === 'createCrafter'" class="flex flex-col">
+        <div v-if="route.name === 'createCrafter' || route.name==='editCrafter'" class="flex flex-col">
             <label class="input input-bordered flex items-center gap-2 m-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                     class="w-4 h-4 opacity-70">
