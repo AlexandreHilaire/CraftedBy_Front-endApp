@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user';
 import axios from 'axios';
 import { useAddressesStore } from '@/stores/addresses';
 import { useUploadsStore } from '@/stores/uploads';
+import { defineProps } from 'vue';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
@@ -14,8 +15,21 @@ const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
 const user = ref();
 
+const props = defineProps({
+    crafterId: String
+});
+
 onBeforeMount(async () => {
     user.value = await userStore.userAuth();
+    if (route.name === 'editCrafter') {
+        await crafterStore.fetchCrafterData(props.crafterId);
+        crafter_name.value = crafterStore.crafterData.crafter_name;
+        location.value = crafterStore.crafterData.location;
+        information.value = crafterStore.crafterData.information;
+        story.value = crafterStore.crafterData.story;
+        crafting_process.value = crafterStore.crafterData.crafting_process;
+        material_preference.value = crafterStore.crafterData.material_preference;
+    }
 });
 
 const route = useRoute();
@@ -31,6 +45,11 @@ const material_preference = ref('');
 const submitCreateCrafter = async () => {
     const user_id = user.value.id;
     await crafterStore.createCrafter(user_id, crafter_name.value, location.value, information.value, story.value, crafting_process.value, material_preference.value);
+}
+
+const submitEditCrafter = async () => {
+    const userId = user.value.id;
+    await crafterStore.editCrafter(crafterStore.crafterData.id, userId, crafter_name.value, location.value, information.value, story.value, crafting_process.value, material_preference.value);
 }
 
 // End Crafter form
@@ -87,33 +106,31 @@ const submitIDCard = async () => {
 
 // * End Mindee
 
-// * Stripe
-
-const token = ref(null);
-const stripe = ref(null);
-const elemements = ref(null);
-
-// * EndStripe
 
 const submitForm = async () => {
-    if (route.name === "createCrafter") {
-        await submitCreateCrafter();
-    }
-    else if (route.name === "createAdress") {
-        await submitCreateAddress();
-    }
-    else if (route.name === "identityParse"){
-        await submitIDCard();
-    }
-    else {
-        return;
-    }
+
+    switch (route.name) {
+        case 'createCrafter':
+            await submitCreateCrafter();
+            break;
+        case 'editCrafter':
+            await submitEditCrafter();
+            break;
+        case 'createAdress':
+            await submitCreateAddress();
+            break;
+        case 'identityParse':
+            await submitIDCard();
+            break;
+        default:
+            break;
+    };
 }
 </script>
 <template>
     <form @submit.prevent='submitForm' class="flex flex-col justify-center items-center gap-2">
         <!-- * Crafters -->
-        <div v-if="route.name === 'createCrafter'" class="flex flex-col">
+        <div v-if="route.name === 'createCrafter' || route.name==='editCrafter'" class="flex flex-col">
             <label class="input input-bordered flex items-center gap-2 m-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                     class="w-4 h-4 opacity-70">
@@ -170,11 +187,6 @@ const submitForm = async () => {
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
             <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" @change="fileUpload" />
-        </div>
-        <div v-if="route.name === 'stripe'" class="flex flex-col justify-center items-center gap-5">
-            <div id="payment-element">
-            <!-- Stripe will create form elements here -->
-            </div>
         </div>
         <!-- * End ID Card -->
         <ValidateFormsButton label="Valider" />

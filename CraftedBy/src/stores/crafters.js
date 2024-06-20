@@ -37,6 +37,34 @@ export const useCraftersStore = defineStore('crafter', () => {
         }
     }
 
-    return {fetchCrafters, fetchCrafterData, createCrafter, crafters, crafterData};
+    async function editCrafter(crafterId, user_id, crafter_name, location, information, story, crafting_process, material_preference) {
+        try{
+            await axios.put(`${apiUrl}/crafters/${crafterId}`, {user_id, crafter_name, location, information, story, crafting_process, material_preference})
+        }
+        catch (error){
+            console.log('error crafter edition', error);
+        }
+    }
+
+    const crafterPages = ref([]);
+    async function fetchCrafterPages(id) {
+        try{
+            const response =  await axios.get(`${apiUrl}/users/crafters/${id}`);
+            crafterPages.value = response.data;
+        }
+        catch(error){
+            console.log('error fetching crafterPages', error);
+        }
+    }
+    async function deleteCrafterPage(id){
+        try{
+            await axios.delete(`${apiUrl}/crafters/${id}`);
+        }
+        catch(error){
+            console.log('error deleting crafter page');
+        }
+    }
+
+    return {fetchCrafters, fetchCrafterData, createCrafter, fetchCrafterPages, deleteCrafterPage, editCrafter, crafters, crafterData, crafterPages};
 
 });

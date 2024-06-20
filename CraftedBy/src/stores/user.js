@@ -69,6 +69,17 @@ if (user) {
         }
     }
 
-    return {login, logout, userAuth, register, fetchUserAdresses, isAuth};
+    const userRole = ref('');
+    async function fetchUserRole(id){
+        try {
+            const response = await axios.get(`${apiUrl}/users/role/${id}`);
+            userRole.value = response.data;
+        }
+        catch (error){
+            console.log('error fetching user role', error);
+        }
+    }
+
+    return {login, logout, userAuth, register, fetchUserAdresses, fetchUserRole, userRole, isAuth};
 
 });

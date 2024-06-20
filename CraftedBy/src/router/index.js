@@ -16,6 +16,7 @@ import EditAdresses from '@/views/EditAdresses.vue';
 import CreateAdress from '@/views/CreateAdress.vue';
 import IdentityParse from '@/views/IdentityParse.vue';
 import Stripe from '@/views/Stripe.vue';
+import EditCrafter from '@/views/EditCrafter.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -84,6 +85,12 @@ const router = createRouter({
       path: '/createCrafter',
       name: 'createCrafter',
       component:CreateCrafterView,
+    },
+    {
+      path: '/editCrafter',
+      name: 'editCrafter',
+      component: EditCrafter,
+      props: route => ({crafterData: route.params.crafterData}),
     },
     {
       path: '/editAdresses',

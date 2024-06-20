@@ -1,14 +1,15 @@
 <script setup>
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import { useCraftersStore } from '@/stores/crafters';
-import { useRoute } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { ref } from 'vue';
 
 const crafterStore = useCraftersStore();
 
 const route = useRoute()
 const crafterId = ref(route.params.id);
-const crafter = crafterStore.fetchCrafterData(crafterId.value);
+crafterStore.fetchCrafterData(crafterId.value);
+
 
 
 let products = ['1', '2', '3', '4', '5'] ;
@@ -16,7 +17,12 @@ let products = ['1', '2', '3', '4', '5'] ;
 </script>
 
 <template>
-  <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.crafter_name}}</h1>
+  <div class="m-5 flex justify-center">
+    <RouterLink :to="{name:'editCrafter', params: {crafterData: crafterStore.crafterData}}">
+      <ButtonPrimary label="Editer la page"/>
+    </RouterLink>
+    <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.crafter_name}}</h1>
+  </div>
 
   <div class="m-5 flex justify-center">
     <div class="card w-96 bg-base-100 shadow-xl">
