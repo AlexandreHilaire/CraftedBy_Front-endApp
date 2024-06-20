@@ -8,7 +8,13 @@ const crafterStore = useCraftersStore();
 const user = ref();
 
 async function deleteCrafterPages(crafterPageId){
-    await crafterStore.deleteCrafterPage(crafterPageId);
+    if(store.userRole === 'crafter') {
+        await crafterStore.deleteCrafterPage(crafterPageId);
+    }
+    else {
+        // TODO Pages 404/403 et messages flottant pour prévenir les utlisisateurs
+        console.log('403 Unauthorized'); 
+    }
 }
 
 onBeforeMount(async () => {
