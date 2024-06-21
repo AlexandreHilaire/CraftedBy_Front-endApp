@@ -80,6 +80,27 @@ if (user) {
         }
     }
 
-    return {login, logout, userAuth, register, fetchUserAdresses, fetchUserRole, userRole, isAuth};
+    const userProducts = ref(null);
+    async function fetchUserProducts(id){
+        try{
+            const response = await axios.get(`${apiUrl}/users/products/${id}`);
+            userProducts.value = response.data;
+        }
+        catch(error){
+            console.log('error fetching user products', error);
+        }
+    }
+
+    async function deleteUserProduct(id){
+        try{
+            await axios.delete(`${apiUrl}/products/${id}`);
+        }
+        catch(error){
+            console.log('error delete Userproduct', error);
+        }
+    }
+
+    return {login, logout, userAuth, register, fetchUserAdresses, fetchUserRole, fetchUserProducts, deleteUserProduct,
+            userRole, isAuth, userProducts};
 
 });
