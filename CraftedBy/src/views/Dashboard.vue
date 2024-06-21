@@ -17,12 +17,23 @@ async function deleteCrafterPages(crafterPageId){
     }
 }
 
+async function deleteProduct(productId){
+    if (store.userRole === 'crafter'){
+        await store.deleteUserProduct(productId);
+    }
+    else {
+        // TODO errors pages
+        console.log('403, unauthorized');
+    }
+}
+
 onBeforeMount(async () => {
     user.value = await store.userAuth();
     const userId = user.value.id;
     await store.fetchUserRole(userId);
     if (store.userRole === 'crafter'){
         crafterStore.fetchCrafterPages(userId);
+        store.fetchUserProducts(userId);
     }
 });
 
@@ -68,6 +79,17 @@ onBeforeMount(async () => {
                     </RouterLink>
                     <ButtonPrimary @click="deleteCrafterPages(page.id)" label="Supprimer"/>
                 </div>
+            </div>
+            <h2 class="m-5 text-2xl justify-center">Mes produits</h2>
+            <RouterLink to="/createProduct">
+                <ButtonPrimary label="Ajouter un produit"  class="m-5"/>
+            </RouterLink>
+            <div v-for="product in store.userProducts" :key="product.id">
+                <p class="m-5">{{ product.name }}</p>
+                    <RouterLink :to="{ name: 'product', params: { id: product.id } }">
+                        <ButtonPrimary label="Voir le produit" class="m-5"/>
+                    </RouterLink>
+                    <ButtonPrimary @click="deleteProduct(product.id)" label="Supprimer"/>
             </div>
         </div>
     </div>
