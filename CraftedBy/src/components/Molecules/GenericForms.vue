@@ -8,15 +8,18 @@ import axios from 'axios';
 import { useAddressesStore } from '@/stores/addresses';
 import { useUploadsStore } from '@/stores/uploads';
 import { defineProps } from 'vue';
+import { useProductStore } from '@/stores/product';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
 const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
+const productStore = useProductStore();
 const user = ref();
 
 const props = defineProps({
-    crafterId: String
+    crafterId: String,
+    productId: String
 });
 
 onBeforeMount(async () => {
@@ -29,6 +32,10 @@ onBeforeMount(async () => {
         story.value = crafterStore.crafterData.story;
         crafting_process.value = crafterStore.crafterData.crafting_process;
         material_preference.value = crafterStore.crafterData.material_preference;
+    }
+    else if (route.name === 'editProduct'){
+        await productStore.getProductData(props.productId);
+
     }
 });
 
@@ -87,6 +94,26 @@ const submitCreateAddress = async () => {
 }
 // End Adress form
 
+// Product forms
+
+const productName = ref('');
+const pmodelName = ref('');
+const unitPrice = ref();
+const description = ref('');
+// const status = ref(); // TODO mettre dans la requète à 0 par défaut à valider par l'admin
+const color = ref('');
+const customizable = ref();
+// const isActive=ref(); // TODO mettre dans la requète à 0 par défaut à valider par l'admin
+const categoriesNames = ref(['test']);
+const materialsNames = ref(['test']);
+
+const submitCreateProduct = async () => {
+    const userId = user.value.id;
+    await productStore.createProduct(userId, productName.value, pmodelName.value, unitPrice.value, description.value, color.value, customizable.value, categoriesNames.value, materialsNames.value);
+}
+
+// end Product forms
+
 // Mindee
 
 const fileToUpload = ref(null);
@@ -106,7 +133,6 @@ const submitIDCard = async () => {
 
 // * End Mindee
 
-
 const submitForm = async () => {
 
     switch (route.name) {
@@ -121,6 +147,9 @@ const submitForm = async () => {
             break;
         case 'identityParse':
             await submitIDCard();
+            break;
+        case 'createProduct':
+            await submitCreateProduct();
             break;
         default:
             break;
@@ -183,6 +212,36 @@ const submitForm = async () => {
             </div>
         </div>
         <!-- * end Adress -->
+        <!-- * products -->
+        <div v-if="route.name === 'createProduct' || route.name === 'editProduct'">
+            <div class="flex flex-col gap-5">
+                Nom du produit
+                <input type="text" placeholder="Nom du produit"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="productName" />
+                Modèle du produit
+                <input type="text" placeholder="Modèle"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="pmodelName" />
+                Couleur du produit
+                <input type="text" placeholder="Couleur"
+                class="input input-bordered input-primary w-full max-w-xs" v-model="color" />
+                Personalisable (0 = non, 1 = oui)
+                <input type="number"
+                class="input input-bordered input-primary w-full max-w-xs" v-model="customizable" />
+                Prix unitaire
+                <input type="number"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="unitPrice" /> €
+                Description du produit
+                <input type="text" placeholder="Description du produit"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="description" />
+                <!-- Catégorie du produit
+                <input type="text" placeholder="Catégorie du produit"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="categoriesNames" />
+                Materiaux du produit
+                <input type="text" placeholder="materiaux du produit" class="input input-bordered input-primary w-full max-w-xs"
+                    v-model="materialsNames" /> -->
+            </div>
+        </div>
+        <!-- * end Products -->
         <!-- * ID Card -->
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
