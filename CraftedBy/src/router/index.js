@@ -17,6 +17,8 @@ import CreateAdress from '@/views/CreateAdress.vue';
 import IdentityParse from '@/views/IdentityParse.vue';
 import Stripe from '@/views/Stripe.vue';
 import EditCrafter from '@/views/EditCrafter.vue'
+import EditProduct from '@/views/EditProduct.vue'
+import CreateProduct from '@/views/CreateProduct.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +37,17 @@ const router = createRouter({
       path: '/product/:id',
       name: 'product',
       component: Product,
+    },
+    {
+      path: '/createProduct',
+      name: 'createProduct',
+      component: CreateProduct,
+    },
+    {
+      path: '/editProduct',
+      name: 'editProduct',
+      component: EditProduct,
+      props: route => ({productId: route.params.product_id}),
     },
     {
       path: '/cart',
