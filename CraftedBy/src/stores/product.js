@@ -43,5 +43,14 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  return { fetchProducts, fetchCategories, fetchProductsByCategory, getProductData, products, categories, filteredProducts, productData };
+  async function createProduct(user_id, name, pmodel_name, unit_price, description, color, customizable, categories_names, materials_names, is_active = 0, status = 0 ) {
+      try {
+        axios.post(`${apiUrl}/products`, {user_id, name, pmodel_name, unit_price, description, color, customizable, categories_names, materials_names, is_active, status});
+      }
+      catch(error){
+        console.log('erreur lors de la création du produit', error);
+      }
+  }
+
+  return { fetchProducts, fetchCategories, fetchProductsByCategory, getProductData,createProduct, products, categories, filteredProducts, productData };
 });
