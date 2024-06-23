@@ -98,10 +98,16 @@ onBeforeMount(async () => {
                     <ButtonPrimary @click="deleteProduct(product.id)" label="Supprimer"/>
             </div>
             <h2 class="m-5 text-2xl justify-center">Catégories de produits</h2>
+            <RouterLink to="/createCategories">
+                <ButtonPrimary label="Créer une catégorie du produits"  class="m-5"/>
+            </RouterLink>
             <div v-for="category in categoriesStore.categories" :key="category.id">
                 <p class="m-5">{{ category.category_name }}</p>
             </div>
             <h2 class="m-5 text-2xl justify-center">Matériaux de produits</h2>
+            <RouterLink to="/createMaterials">
+                <ButtonPrimary label="Ajouter un matériau"  class="m-5"/>
+            </RouterLink>
             <div v-for="material in materialsStore.materials" :key="material.id">
                 <p class="m-5">{{ material.material_name }}</p>
             </div>
