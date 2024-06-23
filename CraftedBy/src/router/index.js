@@ -1,24 +1,26 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '../views/HomePage.vue'
-import DeliveryMethod from '@/views/DeliveryMethod.vue'
-import DeliveryAddresses from '../views/DeliveryAddresses.vue'
-import PurchaseFunnel from '@/views/PurchaseFunnel.vue'
-import Product from '../views/Product.vue'
-import ProductsList from '../views/ProductsList.vue'
-import PaymentView from '@/views/PaymentView.vue'
-import CraftersListView from '@/views/CraftersListView.vue'
-import CrafterView from '@/views/CrafterView.vue'
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
-import Dashboard from '@/views/Dashboard.vue'
-import CreateCrafterView from '@/views/CreateCrafterView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomePage from '../views/HomePage.vue';
+import DeliveryMethod from '@/views/DeliveryMethod.vue';
+import DeliveryAddresses from '../views/DeliveryAddresses.vue';
+import PurchaseFunnel from '@/views/PurchaseFunnel.vue';
+import Product from '../views/Product.vue';
+import ProductsList from '../views/ProductsList.vue';
+import PaymentView from '@/views/PaymentView.vue';
+import CraftersListView from '@/views/CraftersListView.vue';
+import CrafterView from '@/views/CrafterView.vue';
+import Login from '@/views/Login.vue';
+import Register from '@/views/Register.vue';
+import Dashboard from '@/views/Dashboard.vue';
+import CreateCrafterView from '@/views/CreateCrafterView.vue';
 import EditAdresses from '@/views/EditAdresses.vue';
 import CreateAdress from '@/views/CreateAdress.vue';
 import IdentityParse from '@/views/IdentityParse.vue';
 import Stripe from '@/views/Stripe.vue';
-import EditCrafter from '@/views/EditCrafter.vue'
-import EditProduct from '@/views/EditProduct.vue'
-import CreateProduct from '@/views/CreateProduct.vue'
+import EditCrafter from '@/views/EditCrafter.vue';
+import EditProduct from '@/views/EditProduct.vue';
+import CreateProduct from '@/views/CreateProduct.vue';
+import CreateCategories from '@/views/CreateCategories.vue';
+import CreateMaterials from '@/views/CreateMaterials.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +50,16 @@ const router = createRouter({
       name: 'editProduct',
       component: EditProduct,
       props: route => ({productId: route.params.product_id}),
+    },
+    {
+      path: '/createCategories',
+      name: 'createCategories',
+      component: CreateCategories,
+    },
+    {
+      path: '/createMaterials',
+      name: 'createMaterials',
+      component: CreateMaterials,
     },
     {
       path: '/cart',
