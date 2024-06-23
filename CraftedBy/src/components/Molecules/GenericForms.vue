@@ -10,6 +10,7 @@ import { useUploadsStore } from '@/stores/uploads';
 import { defineProps } from 'vue';
 import { useProductStore } from '@/stores/product';
 import { useCategoriesStore } from '@/stores/categories';
+import { useMaterialsStore } from '@/stores/materials';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
@@ -17,6 +18,7 @@ const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
 const productStore = useProductStore();
 const categoriesStore = useCategoriesStore();
+const materialStore = useMaterialsStore();
 const user = ref();
 
 const props = defineProps({
@@ -126,6 +128,16 @@ const submitCreateCategory = async () => {
 
 // end Categories form
 
+// Material forms
+
+const materialName = ref();
+
+const submitCreateMaterial = async () => {
+    await materialStore.createMaterial(materialName.value);
+}
+
+// end material form
+
 // Mindee
 
 const fileToUpload = ref(null);
@@ -165,6 +177,9 @@ const submitForm = async () => {
             break;
         case 'createCategories':
             await submitCreateCategory();
+            break;
+        case 'createMaterials':
+            await submitCreateMaterial();
             break;
         default:
             break;
@@ -263,6 +278,12 @@ const submitForm = async () => {
             <input type="text" placeholder="Nom de catégorie" v-model="categoryName">
         </div>
         <!-- * end Categories -->
+        <!-- * materials -->
+        <div v-if="route.name === 'createMaterials'">
+            Nom de matériau
+            <input type="text" placeholder="Nom de matériaux" v-model="materialName">
+        </div>
+        <!-- * end materials -->
         <!-- * ID Card -->
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
