@@ -10,6 +10,11 @@ export const useMaterialsStore = defineStore('materials', () => {
   async function getMaterials() {
     const response = await axios.get(`${apiUrl}/materials`);
     materials.value = response.data;
-  }
-  return {getMaterials, materials};
+  };
+
+  async function createMaterial(material_name){
+    await axios.post(`${apiUrl}/materials`, {material_name});
+  };
+
+  return {getMaterials, createMaterial, materials};
 }); 
