@@ -9,12 +9,14 @@ import { useAddressesStore } from '@/stores/addresses';
 import { useUploadsStore } from '@/stores/uploads';
 import { defineProps } from 'vue';
 import { useProductStore } from '@/stores/product';
+import { useCategoriesStore } from '@/stores/categories';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
 const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
 const productStore = useProductStore();
+const categoriesStore = useCategoriesStore();
 const user = ref();
 
 const props = defineProps({
@@ -114,6 +116,16 @@ const submitCreateProduct = async () => {
 
 // end Product forms
 
+// Categories form
+
+const categoryName = ref();
+
+const submitCreateCategory = async () => {
+    await categoriesStore.createCategory(categoryName.value);
+}
+
+// end Categories form
+
 // Mindee
 
 const fileToUpload = ref(null);
@@ -150,6 +162,9 @@ const submitForm = async () => {
             break;
         case 'createProduct':
             await submitCreateProduct();
+            break;
+        case 'createCategories':
+            await submitCreateCategory();
             break;
         default:
             break;
@@ -242,6 +257,12 @@ const submitForm = async () => {
             </div>
         </div>
         <!-- * end Products -->
+        <!-- * Categories -->
+        <div v-if="route.name === 'createCategories'">
+            Nom de Catégorie
+            <input type="text" placeholder="Nom de catégorie" v-model="categoryName">
+        </div>
+        <!-- * end Categories -->
         <!-- * ID Card -->
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>
