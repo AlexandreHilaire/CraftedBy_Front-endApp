@@ -10,11 +10,11 @@ export const useCategoriesStore = defineStore('categories', () => {
   async function getCategories() {
     const response = await axios.get(`${apiUrl}/categories`);
     categories.value = response.data;
-  }
+  };
 
   async function createCategory(category_name){
     await axios.post(`${apiUrl}/categories`, {category_name});
-  }
+  };
 
   return {getCategories, createCategory, categories};
 }); 
