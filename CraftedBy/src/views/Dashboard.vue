@@ -2,9 +2,11 @@
 import { onBeforeMount, ref } from 'vue';
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import { useCraftersStore } from '@/stores/crafters';
+import { useMaterialsStore } from '@/stores/materials';
 
 const store = useUserStore();
 const crafterStore = useCraftersStore();
+const materialsStore = useMaterialsStore();
 const user = ref();
 
 async function deleteCrafterPages(crafterPageId){
@@ -34,6 +36,7 @@ onBeforeMount(async () => {
     if (store.userRole === 'crafter'){
         crafterStore.fetchCrafterPages(userId);
         store.fetchUserProducts(userId);
+        materialsStore.getMaterials();
     }
 });
 
@@ -90,6 +93,10 @@ onBeforeMount(async () => {
                         <ButtonPrimary label="Voir le produit" class="m-5"/>
                     </RouterLink>
                     <ButtonPrimary @click="deleteProduct(product.id)" label="Supprimer"/>
+            </div>
+            <h2 class="m-5 text-2xl justify-center">Matériaux de produits</h2>
+            <div v-for="material in materialsStore.materials" :key="material.id">
+                <p class="m-5">{{ material.material_name }}</p>
             </div>
         </div>
     </div>
