@@ -37,6 +37,10 @@ onBeforeMount(async () => {
         crafting_process.value = crafterStore.crafterData.crafting_process;
         material_preference.value = crafterStore.crafterData.material_preference;
     }
+    else if (route.name === 'createProduct'){
+        await categoriesStore.getCategories();
+        await materialStore.getMaterials();
+    }
     else if (route.name === 'editProduct'){
         await productStore.getProductData(props.productId);
 
@@ -108,8 +112,8 @@ const description = ref('');
 const color = ref('');
 const customizable = ref();
 // const isActive=ref(); // TODO mettre dans la requète à 0 par défaut à valider par l'admin
-const categoriesNames = ref(['test']);
-const materialsNames = ref(['test']);
+const categoriesNames = ref([]);
+const materialsNames = ref([]);
 
 const submitCreateProduct = async () => {
     const userId = user.value.id;
@@ -254,21 +258,30 @@ const submitForm = async () => {
                 Couleur du produit
                 <input type="text" placeholder="Couleur"
                 class="input input-bordered input-primary w-full max-w-xs" v-model="color" />
-                Personalisable (0 = non, 1 = oui)
-                <input type="number"
-                class="input input-bordered input-primary w-full max-w-xs" v-model="customizable" />
+                Personalisable
+                <select v-model="customizable" class="select select-bordered w-full max-w-xs">
+                    <option value=1>
+                        Oui
+                    </option>
+                    <option value=0>
+                        Non
+                    </option>
+                </select>
                 Prix unitaire
                 <input type="number"
                     class="input input-bordered input-primary w-full max-w-xs" v-model="unitPrice" /> €
                 Description du produit
-                <input type="text" placeholder="Description du produit"
-                    class="input input-bordered input-primary w-full max-w-xs" v-model="description" />
-                <!-- Catégorie du produit
-                <input type="text" placeholder="Catégorie du produit"
-                    class="input input-bordered input-primary w-full max-w-xs" v-model="categoriesNames" />
-                Materiaux du produit
-                <input type="text" placeholder="materiaux du produit" class="input input-bordered input-primary w-full max-w-xs"
-                    v-model="materialsNames" /> -->
+                <input type="text" placeholder="Description du produit" class="input input-bordered input-primary w-full max-w-xs" v-model="description" />
+                Sélectionnez une catégorie (Si aucune ne correspond, ne sélectionnez rien) :
+                <select v-model="categoriesNames" class="select select-bordered w-full max-w-xs" multiple>
+                    <option selected value=''></option>
+                    <option v-for="category in categoriesStore.categories" :key="category.id" :value="category.category_name">{{ category.category_name }}</option>
+                </select>
+                Sélectionnez une matériau (Si aucun ne correspond ne sélectionnez rien) :
+                <select v-model="materialsNames" class="select select-bordered w-full max-w-xs" multiple>
+                    <option selected value=''></option>
+                    <option v-for="material in materialStore.materials" :key="material.id" :value="material.material_name">{{ material.material_name }}</option>
+                </select>
             </div>
         </div>
         <!-- * end Products -->
