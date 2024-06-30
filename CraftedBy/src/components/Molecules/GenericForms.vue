@@ -43,7 +43,14 @@ onBeforeMount(async () => {
     }
     else if (route.name === 'editProduct'){
         await productStore.getProductData(props.productId);
-
+        productName.value = productStore.productData.name;
+        pmodelName.value = productStore.productData.pmodel;
+        unitPrice.value = productStore.productData.unit_price;
+        description.value = productStore.productData.description;
+        color.value = productStore.productData.color;
+        customizable.value = productStore.productData.customizable;
+        categoriesNames.value = productStore.productData.categories;
+        materialsNames.value = productStore.productData.materials;
     }
 });
 
@@ -119,6 +126,10 @@ const submitCreateProduct = async () => {
     const userId = user.value.id;
     await productStore.createProduct(userId, productName.value, pmodelName.value, unitPrice.value, description.value, color.value, customizable.value, categoriesNames.value, materialsNames.value);
 }
+const submitEditProduct = async () => {
+    const userId = user.value.id;
+    await productStore.editProduct(productStore.productData.id, userId, productName.value, pmodelName.value, unitPrice.value, description.value, color.value, customizable.value, categoriesNames.value, materialsNames.value)
+}
 
 // end Product forms
 
@@ -178,6 +189,9 @@ const submitForm = async () => {
             break;
         case 'createProduct':
             await submitCreateProduct();
+            break;
+        case 'editProduct':
+            await submitEditProduct();
             break;
         case 'createCategories':
             await submitCreateCategory();
@@ -258,7 +272,7 @@ const submitForm = async () => {
                 Couleur du produit
                 <input type="text" placeholder="Couleur"
                 class="input input-bordered input-primary w-full max-w-xs" v-model="color" />
-                Personalisable
+                Personnalisable
                 <select v-model="customizable" class="select select-bordered w-full max-w-xs">
                     <option value=1>
                         Oui
