@@ -115,10 +115,8 @@ const productName = ref('');
 const pmodelName = ref('');
 const unitPrice = ref();
 const description = ref('');
-// const status = ref(); // TODO mettre dans la requète à 0 par défaut à valider par l'admin
 const color = ref('');
 const customizable = ref();
-// const isActive=ref(); // TODO mettre dans la requète à 0 par défaut à valider par l'admin
 const categoriesNames = ref([]);
 const materialsNames = ref([]);
 
