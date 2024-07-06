@@ -2,7 +2,6 @@
 
 import ProductCard from '@/components/Organisms/ProductCard.vue';
 
-
 </script>
 
 <template>

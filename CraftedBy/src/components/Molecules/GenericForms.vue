@@ -8,15 +8,22 @@ import axios from 'axios';
 import { useAddressesStore } from '@/stores/addresses';
 import { useUploadsStore } from '@/stores/uploads';
 import { defineProps } from 'vue';
+import { useProductStore } from '@/stores/product';
+import { useCategoriesStore } from '@/stores/categories';
+import { useMaterialsStore } from '@/stores/materials';
 
 const crafterStore = useCraftersStore();
 const userStore = useUserStore();
 const addressStore = useAddressesStore();
 const uploadStore = useUploadsStore();
+const productStore = useProductStore();
+const categoriesStore = useCategoriesStore();
+const materialStore = useMaterialsStore();
 const user = ref();
 
 const props = defineProps({
-    crafterId: String
+    crafterId: String,
+    productId: String
 });
 
 onBeforeMount(async () => {
@@ -29,6 +36,21 @@ onBeforeMount(async () => {
         story.value = crafterStore.crafterData.story;
         crafting_process.value = crafterStore.crafterData.crafting_process;
         material_preference.value = crafterStore.crafterData.material_preference;
+    }
+    else if (route.name === 'createProduct'){
+        await categoriesStore.getCategories();
+        await materialStore.getMaterials();
+    }
+    else if (route.name === 'editProduct'){
+        await productStore.getProductData(props.productId);
+        productName.value = productStore.productData.name;
+        pmodelName.value = productStore.productData.pmodel;
+        unitPrice.value = productStore.productData.unit_price;
+        description.value = productStore.productData.description;
+        color.value = productStore.productData.color;
+        customizable.value = productStore.productData.customizable;
+        categoriesNames.value = productStore.productData.categories;
+        materialsNames.value = productStore.productData.materials;
     }
 });
 
@@ -87,6 +109,48 @@ const submitCreateAddress = async () => {
 }
 // End Adress form
 
+// Product forms
+
+const productName = ref('');
+const pmodelName = ref('');
+const unitPrice = ref();
+const description = ref('');
+const color = ref('');
+const customizable = ref();
+const categoriesNames = ref([]);
+const materialsNames = ref([]);
+
+const submitCreateProduct = async () => {
+    const userId = user.value.id;
+    await productStore.createProduct(userId, productName.value, pmodelName.value, unitPrice.value, description.value, color.value, customizable.value, categoriesNames.value, materialsNames.value);
+}
+const submitEditProduct = async () => {
+    const userId = user.value.id;
+    await productStore.editProduct(productStore.productData.id, userId, productName.value, pmodelName.value, unitPrice.value, description.value, color.value, customizable.value, categoriesNames.value, materialsNames.value)
+}
+
+// end Product forms
+
+// Categories form
+
+const categoryName = ref();
+
+const submitCreateCategory = async () => {
+    await categoriesStore.createCategory(categoryName.value);
+}
+
+// end Categories form
+
+// Material forms
+
+const materialName = ref();
+
+const submitCreateMaterial = async () => {
+    await materialStore.createMaterial(materialName.value);
+}
+
+// end material form
+
 // Mindee
 
 const fileToUpload = ref(null);
@@ -106,7 +170,6 @@ const submitIDCard = async () => {
 
 // * End Mindee
 
-
 const submitForm = async () => {
 
     switch (route.name) {
@@ -121,6 +184,18 @@ const submitForm = async () => {
             break;
         case 'identityParse':
             await submitIDCard();
+            break;
+        case 'createProduct':
+            await submitCreateProduct();
+            break;
+        case 'editProduct':
+            await submitEditProduct();
+            break;
+        case 'createCategories':
+            await submitCreateCategory();
+            break;
+        case 'createMaterials':
+            await submitCreateMaterial();
             break;
         default:
             break;
@@ -183,6 +258,57 @@ const submitForm = async () => {
             </div>
         </div>
         <!-- * end Adress -->
+        <!-- * products -->
+        <div v-if="route.name === 'createProduct' || route.name === 'editProduct'">
+            <div class="flex flex-col gap-5">
+                Nom du produit
+                <input type="text" placeholder="Nom du produit"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="productName" />
+                Modèle du produit
+                <input type="text" placeholder="Modèle"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="pmodelName" />
+                Couleur du produit
+                <input type="text" placeholder="Couleur"
+                class="input input-bordered input-primary w-full max-w-xs" v-model="color" />
+                Personnalisable
+                <select v-model="customizable" class="select select-bordered w-full max-w-xs">
+                    <option value=1>
+                        Oui
+                    </option>
+                    <option value=0>
+                        Non
+                    </option>
+                </select>
+                Prix unitaire
+                <input type="number"
+                    class="input input-bordered input-primary w-full max-w-xs" v-model="unitPrice" /> €
+                Description du produit
+                <input type="text" placeholder="Description du produit" class="input input-bordered input-primary w-full max-w-xs" v-model="description" />
+                Sélectionnez une catégorie (Si aucune ne correspond, ne sélectionnez rien) :
+                <select v-model="categoriesNames" class="select select-bordered w-full max-w-xs" multiple>
+                    <option selected value=''></option>
+                    <option v-for="category in categoriesStore.categories" :key="category.id" :value="category.category_name">{{ category.category_name }}</option>
+                </select>
+                Sélectionnez une matériau (Si aucun ne correspond ne sélectionnez rien) :
+                <select v-model="materialsNames" class="select select-bordered w-full max-w-xs" multiple>
+                    <option selected value=''></option>
+                    <option v-for="material in materialStore.materials" :key="material.id" :value="material.material_name">{{ material.material_name }}</option>
+                </select>
+            </div>
+        </div>
+        <!-- * end Products -->
+        <!-- * Categories -->
+        <div v-if="route.name === 'createCategories'">
+            Nom de Catégorie
+            <input type="text" placeholder="Nom de catégorie" v-model="categoryName">
+        </div>
+        <!-- * end Categories -->
+        <!-- * materials -->
+        <div v-if="route.name === 'createMaterials'">
+            Nom de matériau
+            <input type="text" placeholder="Nom de matériaux" v-model="materialName">
+        </div>
+        <!-- * end materials -->
         <!-- * ID Card -->
         <div v-if="route.name ==='identityParse'" class="flex flex-col justify-center items-center gap-5">
             <h3>Uploadez une image votre carte nationale d'identité (formats supportés : JPG, PNG, WEBP, TIFF, HEIC)</h3>

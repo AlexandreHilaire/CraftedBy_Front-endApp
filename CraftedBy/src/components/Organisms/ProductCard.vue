@@ -13,7 +13,6 @@ const productStore = useProductStore();
 productStore.getProductData(product_id.value);
 
 const {productData} = storeToRefs(productStore)
-console.log("product data", productData.value)
 
 function addProductToCart() {
   cartStore.addProductToCart(productData.value);
@@ -32,6 +31,9 @@ function addProductToCart() {
       <p class="font-semibold justify-end">{{ productData.unit_price }} €</p>
       <div class="card-actions justify-end">
         <ButtonPrimary @click="addProductToCart" :label="'Acheter'" />
+        <RouterLink :to="{name:'editProduct', params: {ProductId: product_id}}">
+            <ButtonPrimary label="Editer le produit"/>
+        </RouterLink>
        </div>
     </div>
   </div>

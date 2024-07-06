@@ -10,8 +10,6 @@ const route = useRoute()
 const crafterId = ref(route.params.id);
 crafterStore.fetchCrafterData(crafterId.value);
 
-
-
 let products = ['1', '2', '3', '4', '5'] ;
 
 </script>
