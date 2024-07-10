@@ -7,6 +7,6 @@
             </div>
         </div>
 
-        <NavBar class="flex justify-between sticky top-0" />
+        <NavBar />
     </header>
 </template>
