@@ -17,21 +17,23 @@ let contents = ['1', '2']
     <h2 class="relative right-24 lg:text-7xl md:text-5xl sm:text-3xl">Le geste</h2>
     <div class="relative flex min-h-96 min-w-full justify-center bg-[#E0B841] bg-opacity-40">
       <h2 class="absolute left-2/4 lg:text-7xl md:text-5xl sm:text-3xl">des artisans</h2>
-      <div
-        v-for="content in contents"
-        :key="content"
-        class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
-      >
-        <figure>
-          <img src="/product.svg" alt="productImage" />
-        </figure>
-        <div class="card-body items-center text-center">
-          <h2 class="card-title">Titre produit</h2>
-          <p>Produit description</p>
-          <div class="card-actions">
-            <ButtonPrimary :label="'Je veux'" />
+      <div class="grid md:grid-cols-2 sm:grid-cols-1">
+        <div
+          v-for="content in contents"
+          :key="content"
+          class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
+        >
+          <figure>
+            <img src="/product.svg" alt="productImage" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Titre produit</h2>
+            <p>Produit description</p>
+            <div class="card-actions">
+              <ButtonPrimary :label="'Je veux'" />
+            </div>
+            <p class="font-semibold">666 €</p>
           </div>
-          <p class="font-semibold">666 €</p>
         </div>
       </div>
     </div>
@@ -41,21 +43,23 @@ let contents = ['1', '2']
     <h2 class="relative right-24 lg:text-7xl md:text-5xl sm:text-3xl">Produits</h2>
     <div class="relative flex min-h-96 min-w-full justify-center bg-blue-700 bg-opacity-40">
       <h2 class="absolute left-2/4 lg:text-7xl md:text-5xl sm:text-3xl">Phares</h2>
-      <div
-        v-for="content in contents"
-        :key="content"
-        class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
-      >
-        <figure>
-          <img src="/product.svg" alt="productImage" />
-        </figure>
-        <div class="card-body items-center text-center">
-          <h2 class="card-title">Titre produit</h2>
-          <p>Produit description</p>
-          <div class="card-actions">
-            <ButtonPrimary :label="'Je veux'" />
+      <div class="grid md:grid-cols-2 sm:grid-cols-1">
+        <div
+          v-for="content in contents"
+          :key="content"
+          class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
+        >
+          <figure>
+            <img src="/product.svg" alt="productImage" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Titre produit</h2>
+            <p>Produit description</p>
+            <div class="card-actions">
+              <ButtonPrimary :label="'Je veux'" />
+            </div>
+            <p class="font-semibold">666 €</p>
           </div>
-          <p class="font-semibold">666 €</p>
         </div>
       </div>
     </div>
@@ -67,18 +71,20 @@ let contents = ['1', '2']
       class="relative flex min-h-96 min-w-full justify-center bg-red-700 bg-opacity-40 text-center">
       <h2 class="absolute right-1/2 lg:text-7xl md:text-5xl sm:text-3xl">Du</h2>
       <h2 class="absolute top-16 start-1/2 lg:text-7xl md:text-5xl sm:text-3xl">Mois</h2>
-      <div
-        v-for="content in contents"
-        :key="content"
-        class="card m-10 mt-40 w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img src="/crafter.svg" alt="crafterImage" />
-        </figure>
-        <div class="card-body items-center text-center">
-          <h2 class="card-title">Nom boutique</h2>
-          <p>Boutique description</p>
-          <div class="card-actions">
-            <ButtonPrimary :label="'visiter'" />
+      <div class="grid md:grid-cols-2 sm:grid-cols-1">
+        <div
+          v-for="content in contents"
+          :key="content"
+          class="card m-10 mt-40 w-96 bg-base-100 shadow-xl">
+          <figure>
+            <img src="/crafter.svg" alt="crafterImage" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Nom boutique</h2>
+            <p>Boutique description</p>
+            <div class="card-actions">
+              <ButtonPrimary :label="'visiter'" />
+            </div>
           </div>
         </div>
       </div>
