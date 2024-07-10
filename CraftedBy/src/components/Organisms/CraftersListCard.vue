@@ -10,7 +10,7 @@ const props = defineProps({
 <template>
   <div class="card card-side bg-base-100 shadow-xl w-2/4">
     <figure>
-      <img src="/crafter.svg" alt="crafter" class="w-[250px] h-[350px]" />
+      <img src="/crafter.svg" alt="crafter" class="w-full object-contain" />
     </figure>
     <div class="card-body">
       <h2 class="card-title">{{props.crafter.crafter_name}}</h2>

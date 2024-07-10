@@ -11,7 +11,7 @@ const props = defineProps({
     <div class="card w-96 bg-base-100 shadow-xl">
         <figure class="bg-white p-2">
             <!-- * :src and not {{ props.product.image }} because binding -->
-            <img :src="props.product.image" alt="productImage" class="h-64 object-contain" />
+            <img :src="props.product.image" alt="productImage" class="w-full object-contain" />
         </figure>
         <div class="card-body items-center text-center">
             <h2 class="card-title">{{ props.product.name }}</h2>

@@ -25,7 +25,7 @@ let products = ['1', '2', '3', '4', '5'] ;
   <div class="m-5 flex justify-center">
     <div class="card w-96 bg-base-100 shadow-xl">
       <figure>
-        <img src="/crafter.svg" alt="crafter_profile_pic" />
+        <img src="/crafter.svg" alt="crafter_profile_pic" class="w-full object-contain" />
       </figure>
       <div class="card-body">
         <h2 class="card-title justify-center text-xl">Intro :</h2>

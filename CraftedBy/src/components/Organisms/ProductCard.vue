@@ -23,7 +23,7 @@ function addProductToCart() {
 <template>
   <div v-if="productData" class="card card-side bg-base-100 shadow-xl flex place-items-center w-1/2 mx-auto flex-wrap md:flex-nowrap">
     <figure>
-      <img :src="productData.images[0]" />
+      <img :src="productData.images[0]" class="w-full object-contain" />
     </figure>
     <div class="card-body">
        <h2 class="card-title">{{ productData.name }}</h2>
