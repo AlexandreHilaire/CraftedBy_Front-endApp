@@ -24,7 +24,7 @@ let contents = ['1', '2']
           class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
         >
           <figure>
-            <img src="/product.svg" alt="productImage" />
+            <img src="/product.svg" alt="productImage" class="w-full object-contain" />
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">Titre produit</h2>
@@ -50,7 +50,7 @@ let contents = ['1', '2']
           class="card m-10 mt-20 w-96 bg-base-100 shadow-xl"
         >
           <figure>
-            <img src="/product.svg" alt="productImage" />
+            <img src="/product.svg" alt="productImage" class="w-full object-contain"/>
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">Titre produit</h2>
@@ -77,7 +77,7 @@ let contents = ['1', '2']
           :key="content"
           class="card m-10 mt-40 w-96 bg-base-100 shadow-xl">
           <figure>
-            <img src="/crafter.svg" alt="crafterImage" />
+            <img src="/crafter.svg" alt="crafterImage" class="w-full object-contain" />
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">Nom boutique</h2>
