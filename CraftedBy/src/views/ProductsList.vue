@@ -31,7 +31,7 @@ watch(selectedCategory, (newValue, oldValue) => {
 
 
     <main class="flex flex-col place-items-center py-5">
-        <h1 class="text-6xl p-5">Liste des produits</h1>
+        <h1 class="lg:text-8xl md:text-6xl sm:text-5xl p-5">Liste des produits</h1>
         <select v-model="selectedCategory" class="select select-bordered w-full max-w-xs" @change="productStore.fetchProductsByCategory(selectedCategory)">
             <option selected value=''>Tous</option>
             <option v-for="category in productStore.categories" :key="category" :value="category">{{ category.category_name }}</option>

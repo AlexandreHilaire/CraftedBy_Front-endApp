@@ -12,7 +12,7 @@ onBeforeMount( async () => {
 </script>
 
 <template>
-    <h1 class="text-2xl flex justify-center">Voici nos artisans</h1>
+    <h1 class="lg:text-8xl md:text-6xl sm:text-5xl p-5 flex justify-center">Voici nos artisans</h1>
     <div v-for="crafter in craftersStore.crafters" :key="crafter" class="flex flex-col items-center m-20">
     <CraftersListCard :crafter="crafter"/>
     </div>
