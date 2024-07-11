@@ -2,9 +2,13 @@
 import ButtonPrimary from '@/components/Atoms/Buttons/ButtonPrimary.vue';
 import { useCraftersStore } from '@/stores/crafters';
 import { RouterLink, useRoute } from 'vue-router';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { useUserStore } from '@/stores/user';
 
 const crafterStore = useCraftersStore();
+const userStore = useUserStore();
+
+const user = ref();
 
 const route = useRoute()
 const crafterId = ref(route.params.id);
@@ -12,14 +16,22 @@ crafterStore.fetchCrafterData(crafterId.value);
 
 let products = ['1', '2', '3', '4', '5'] ;
 
+onBeforeMount(async () => {
+  user.value = await userStore.userAuth()
+  const userId = user.value.id
+  await userStore.fetchUserRole(userId)
+});
+
 </script>
 
 <template>
   <div class="m-5 flex justify-center">
+    <div v-if="userStore.userRole === 'crafter' ">
     <RouterLink :to="{name:'editCrafter', params: {crafterData: crafterStore.crafterData}}">
-      <ButtonPrimary label="Editer la page"/>
+      <ButtonPrimary label="Editer la page" />
     </RouterLink>
-    <h1 class="m-5 flex justify-center text-2xl">{{crafterStore.crafterData.crafter_name}}</h1>
+    </div>
+    <h1 class="m-5 flex justify-center sm:text-1xl md:text-2xl">{{crafterStore.crafterData.crafter_name}}</h1>
   </div>
 
   <div class="m-5 flex justify-center">
@@ -37,7 +49,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             <div tabindex="0" role="button" class="btn m-1"><PhMapPinLine /></div>
             <div
               tabindex="0"
-              class="card dropdown-content card-compact z-[1] w-64 bg-primary p-2 text-primary-content shadow"
+              class="card dropdown-content card-compact z-[1] md:w-64 sm:w-full overflow-auto bg-primary p-2 text-primary-content shadow"
             >
               <div class="card-body">
                 <h3 class="card-title">Emplacement</h3>
@@ -49,7 +61,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             <div tabindex="0" role="button" class="btn m-1"><PhScroll /></div>
             <div
               tabindex="0"
-              class="card dropdown-content card-compact z-[1] w-64 bg-primary p-2 text-primary-content shadow"
+              class="card dropdown-content card-compact z-[1] md:w-64 sm:w-full overflow-auto bg-primary p-2 text-primary-content shadow"
             >
               <div class="card-body">
                 <h3 class="card-title">Mon histoire</h3>
@@ -61,7 +73,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             <div tabindex="0" role="button" class="btn m-1"><PhHammer /></div>
             <div
               tabindex="0"
-              class="card dropdown-content card-compact z-[1] w-64 bg-primary p-2 text-primary-content shadow"
+              class="card dropdown-content card-compact z-[1] md:w-64 sm:w-full overflow-auto bg-primary p-2 text-primary-content shadow"
             >
               <div class="card-body">
                 <h3 class="card-title">Mon savoir faire</h3>
@@ -73,7 +85,7 @@ let products = ['1', '2', '3', '4', '5'] ;
             <div tabindex="0" role="button" class="btn m-1"><PhFire /></div>
             <div
               tabindex="0"
-              class="card dropdown-content card-compact z-[1] w-64 bg-primary p-2 text-primary-content shadow"
+              class="card dropdown-content card-compact z-[1] md:w-64 sm:w-full overflow-auto bg-primary p-2 text-primary-content shadow"
             >
               <div class="card-body">
                 <h3 class="card-title">Ce que j'aime le plus</h3>
